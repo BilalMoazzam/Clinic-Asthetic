@@ -69,7 +69,7 @@ export default function TopNavBar() {
                 className="premium-btn"
                 style={{ backgroundColor: settings.primaryAccent }}
               >
-                Book Now
+                Book Nows
               </Link>
             </div>
 
