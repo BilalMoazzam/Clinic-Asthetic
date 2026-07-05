@@ -1,0 +1,86 @@
+[
+  {
+    "id": "s1",
+    "title": "HydraFacial Pro",
+    "duration": "60 Minutes",
+    "description": "Deep Detoxification",
+    "price": 240,
+    "featured": true,
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBnI9iR47Y9d4Q7HFtdLQP8bs5sujGRsYB7jpW6lAwr6b2yh2pj_2iqBZeriXdvqBKWzlUFrjHiKQ9HF4O9QFDxF_1jwtZBWZoSvE6oNlpM_5lmZPbGOaoFBNCEglePu3quJkF6dCb8MJHxIJWcIs0TwyWkJbiZk-tsKb0cyfje3tS8SniEcYLIrU6fdtiV2d76A2YbXd1cGaN-5-X7LyWB-QN-AcOQxgejzHbaKgYBKU1pBR4vGJ0S2t04D1oS0J903fUHelOi0gU",
+    "category": "Skincare"
+  },
+  {
+    "id": "s2",
+    "title": "Velvet Massage",
+    "duration": "90 Minutes",
+    "description": "A signature deep-tissue experience using warm essential oils and rhythmic movements.",
+    "price": 185,
+    "featured": false,
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuC4UiRJFLbITzogsAa4-H6ftuNjEc1uSEtXwNniBvYQOTUYnaFNzYph-WqVp3YzSdbGszGPNif6ec9JphzTFWkYrbgTRzjBqo_2KnTWR55In1JFpz6ikGeybo4ZzRBc9mXYxWP0z1hdn3la3SNnfrT5ji9FzgL_jTNeFv8CJR-RBSup4EOzG4_Hpwk1KsZ6aEf6I5FBwkDZ6s935iLXDOkpzlZnuYXhWNnGWvuI-zqp0vv88tGD9H6aSKu8no_uLKPwxniYw8uy3Wk",
+    "category": "Wellness"
+  },
+  {
+    "id": "s3",
+    "title": "Vitamin Glow Infusion",
+    "duration": "45 Minutes",
+    "description": "Bespoke vitamin cocktails delivered directly to the dermal layers for instant luminosity.",
+    "price": 150,
+    "featured": false,
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBKgFfZDDB7MX3sjaZv1f0bnjEqBJqWlcVXnqIeBuy2LIgrUSkBctXuRZpIPw3CTifKfbQTD4T-agMsCUuXjX_uRP-dZAKEUPlU7jPIQZEpbFY-vnbJqSZa8YpR4JJlpt_B4-DlLkVLK9sRLBlojl3Hok0iyHzFi3eobvXixnjEQXl5cyE7BYdyiqhyA6au7c-pf2_-OXP2CFsBGQq9Xn3d8lAJ26fnCR2BSZd5MnECqLpuFMbi1klZ1GKn2PSRymatqwxAqUthPm8",
+    "category": "Skincare"
+  },
+  {
+    "id": "s4",
+    "title": "The 24K Gold Botanical Facial",
+    "duration": "75 Minutes",
+    "description": "Harnessing the power of pure gold leaf and botanical stem cells for ultimate cellular repair.",
+    "price": 320,
+    "featured": true,
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCCU2FJXpZ-le0s6vd6RW-LvQ97zmOtUqSHK_1ehY2s_kmwAa2EBWFpyZBaONUvP-g8UmKzHLoo_1qPy7QOeC1nolkpx2oy682ZVpG-MPtCTFF6WKS_z-z5L7wMVlY7KmH1jcYbz08CLustucTiE2ukMPKMwdZ1TAiEVTTPJ3XTnZ3Kc4Rq7kABeLds1Ng1GLJDrtpOlV6THUd2fwqc6rB2qPC5tdl7mQFF4JAweaxD86-iI68D6scnjmSKRpwgPlVF2gfiwUs_pNc",
+    "category": "Skincare"
+  },
+  {
+    "id": "s5",
+    "title": "Luminescent Glow",
+    "duration": "60 Minutes",
+    "description": "A high-performance enzyme peel designed to instantly brighten and resurface dull skin.",
+    "price": 185,
+    "featured": false,
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCMqG1V_1YxYf3g765Gv98qTz92P-X979e8m02k4yN92241H98t1rX51N9hYd73b-N106M32t5lB8U8-B1sUq4g3J9369jW7zU4Z81D2qW717M-vV2x1Wf_41G00n8e4T4v2-e5zM8hQ4r5r7P117j-j2lQ3_1hK2rL6m12r79Lw8P_tH2sF0v0E2sK2918g_bL4jH1Z-uM0K6_E9z",
+    "category": "Skincare",
+    "tags": ["Glow Boost", "Cellular Renewal"]
+  },
+  {
+    "id": "s6",
+    "title": "Deep Essence Ritual",
+    "duration": "90 Minutes",
+    "description": "A sensory journey combining hot stone therapy with essential oil infusions for total mind-body reset.",
+    "price": 210,
+    "featured": false,
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuB0E65Q7e5gQ9X_4V7y_B0n_T1o087H62T3444zQ0D1_39N41E24T8j5X-K32wL0d5eY_1j_2B_E4X9yE7y6v9G61z_T177K_C8H03W7F2yL9q8y4b3v2X8gV9n02hK31sB5tQ8E2j-hQ02_L6zH5pX-rN1mD7_yQ975g7_3V-3453V39T6wT_D9V9sJ4G4s7L9E9Q59L5tY_3m_78zK7M",
+    "category": "Wellness",
+    "tags": ["Relaxes Muscles", "De-Stress"]
+  },
+  {
+    "id": "s7",
+    "title": "Sculpt & Contour",
+    "duration": "75 Minutes",
+    "description": "Non-invasive silhouette refinement using advanced lymphatic drainage and cryo-technology.",
+    "price": 345,
+    "featured": false,
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuB2H6X7_L6qV1N_E1G057H96k3P0T2r9s3kX7M510n91x5N25Q6m1R8_2W85y0wG_1t61eY2B2v1D1qM8v1N_B1qY8hL_N07B3W4vE77m9E9B3zX_P6sZ_W9N6Q5vY3K5xL6_4B0y8J38Z8_6V_422h32j0D2pC4T1sQ6E2zY9nK8_Q_2yR1N8X6Q9T9eM_rZ9vE7n2nK9e0L_N",
+    "category": "Body",
+    "tags": ["Toning", "Detoxifying"]
+  },
+  {
+    "id": "s8",
+    "title": "The VLAS Signature",
+    "duration": "180 Minutes",
+    "description": "Our most comprehensive transformation. Includes a bespoke facial, full-body exfoliation, and a 20-minute LED light session.",
+    "price": 495,
+    "featured": false,
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCF1Jh4mf4wwiiyKMid8Dq5svGrBlah74FnSI1uXelH2hiQhkmNf1qgSaBWd0fLLA6v8L-iGfXCdIvJ7dlVEORi5TZVNM1E5jrNxv2D-BtfW3Zf2PVP3Btwni-vjZPq9cR3t0dSUnYIL3AezjR9PsERq5yNOcNKks7csvBX_2vWC6zIJi-bYwITkiV14Xzw73ToDbj_WYHhJlWhfhDD5zopR9BU-D0bXHM7AuqS4pEXSyxOuFjoVQdEuYLcydx0Sp3XG_VZSKlsNOo",
+    "category": "Bundles",
+    "tags": ["Full transformation", "Exclusive Gifts"]
+  }
+]

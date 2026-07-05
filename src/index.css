@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary: #c8a97e;
+    --primary-dark: #b8956a;
+    --surface: #ffffff;
+    --on-surface: #2d2a26;
+    --on-surface-variant: #7a7570;
+    --surface-container: #faf8f5;
+    --outline: #ebe7e1;
+  }
+
+  body {
+    @apply bg-surface-container text-on-surface antialiased;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+  }
+
+  h1, h2, h3, h4, .font-headline {
+    font-family: 'Playfair Display', serif;
+  }
+
+  .font-label {
+    font-family: 'Montserrat', sans-serif;
+    @apply uppercase tracking-widest font-semibold text-xs;
+  }
+}
+
+@layer components {
+  .editorial-card {
+    @apply bg-surface border border-outline rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300;
+  }
+
+  .premium-btn {
+    @apply bg-primary text-white px-8 py-3 rounded text-sm font-semibold tracking-wider uppercase hover:bg-primary-dark transition-colors duration-300;
+  }
+
+  .input-editorial {
+    @apply w-full bg-transparent border border-outline rounded-md py-3 px-4 focus:ring-1 focus:ring-primary focus:border-primary text-on-surface font-normal text-base placeholder:text-gray-400 transition-all outline-none;
+  }
+
+  .label-editorial {
+    @apply block text-sm font-semibold text-on-surface-variant mb-2;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 20px rgba(200, 169, 126, 0.2);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-surface-container;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-outline rounded-full;
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "d1",
+    "title": "Hair Treatment + Pedicure",
+    "subtitle": "Signature Fusion",
+    "description": "\"A comprehensive renewal for your most prominent features. Rejuvenate from crown to toe.\"",
+    "originalPrice": 240,
+    "discountPrice": 185,
+    "duration": "1hr 40min Total",
+    "tag": "LIMITED SLOTS LEFT",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuCCEyxpBoymOwamVyQdaT-upJNiVNxylSvf3TCPm7sFXRM7TcntBiSciXdOuZi2LUR0Pvoc2BvpluCbbfSICbAkpCzxWWoBw0MI5XTTeo3_bKGH6BtKO6ThS3Ksyb09biyZqbu4nTHtwTMtjrm-wXJzZWlMrfZBdJp3ilMC2I_a4K3bpYqnaA0g2xVVcggK4E1p0xg2mwYyjBR5OlcvMrIgrHCShm7Hvo5ucD0fOrcZvoSkl8eKx9xUMb2GCT48NV_JFCXA29DEaT0"
+  },
+  {
+    "id": "d2",
+    "title": "Mini-Facial & Brows",
+    "subtitle": "Express Glow",
+    "description": "Rapid radiance for the busy professional.",
+    "originalPrice": 110,
+    "discountPrice": 85,
+    "duration": "45min",
+    "tag": null,
+    "image": null
+  },
+  {
+    "id": "d3",
+    "title": "Scalp Therapy & Hand Massage",
+    "subtitle": null,
+    "description": "Release upper-body tension with our signature botanical scalp oil treatment and a restorative hand massage session.",
+    "originalPrice": 165,
+    "discountPrice": 120,
+    "duration": "1hr 10min",
+    "tag": "Ends in 48 Hours",
+    "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuBmKNp-8sM_D-EQpNhLDRyOQVj4y99PSzlZm35n9APL5-gPHSbb8VUPR3Uy4E71dWP30KJdF9FMPa1MZ27hSt5HxHNANJx9u0gxajB4R63QQLfdmyIhzn169hr3stC5bp2QaW6oMSOx5duNEMM5xMWM96ROEZWJj398BV1IkxIih1ivXmEnKiNm909MBteVcOGJM8uDvn3JJsbcHnfks_uyHuMLCvHNdw-4qcvPG0OaWjEM2IQzhlj8rMIrXvbuD4qcsdic-an_KXU"
+  }
+]
