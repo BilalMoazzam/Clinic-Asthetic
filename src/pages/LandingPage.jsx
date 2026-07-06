@@ -78,7 +78,7 @@ export default function LandingPage() {
               to="/book" 
               className="inline-block bg-white text-on-surface px-10 py-4 rounded font-semibold tracking-wider uppercase hover:bg-surface-container transition-colors shadow-lg text-sm"
             >
-              Book YourAppointment
+              Book Your Appointment
             </Link>
           </motion.div>
         </div>
