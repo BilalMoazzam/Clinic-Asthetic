@@ -37,7 +37,7 @@ export default function LandingPage() {
       <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center">
         <div className="absolute inset-0 w-full h-full">
           <img 
-            src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&q=80&w=1920" 
+            src="https://images.unsplash.com/photo-1633681926035-ec1ac984418a?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8c2Fsb24lMjBiZWF1dHl8ZW58MHx8MHx8fDA%3D" 
             alt="Luxury Spa" 
             className="w-full h-full object-cover"
           />
