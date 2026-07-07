@@ -59,7 +59,7 @@ export default function LandingPage() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl md:text-7xl lg:text-8xl font-headline text-white mb-8 leading-tight"
           >
-            Elevate Your <br className="hidden md:block"/> Beauty Routine
+            elevate Your <br className="hidden md:block"/> Beauty Routine
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
@@ -78,7 +78,7 @@ export default function LandingPage() {
               to="/book" 
               className="inline-block bg-white text-on-surface px-10 py-4 rounded font-semibold tracking-wider uppercase hover:bg-surface-container transition-colors shadow-lg text-sm"
             >
-              Book YourAppointment
+              Book Your Appointment
             </Link>
           </motion.div>
         </div>
