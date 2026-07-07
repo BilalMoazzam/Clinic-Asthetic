@@ -51,7 +51,7 @@ export default function LandingPage() {
             transition={{ duration: 0.8 }}
             className="text-sm md:text-base font-semibold tracking-widest uppercase text-white mb-6 block"
           >
-            Welcome to {settings.brandName || 'VLAS'}
+            Welcometo {settings.brandName || 'VLAS'}
           </motion.span>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
