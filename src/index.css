@@ -6,11 +6,11 @@
   :root {
     --primary: #c8a97e;
     --primary-dark: #b8956a;
-    --surface: #ffffff;
+    --surface: #CDBFAC;
     --on-surface: #2d2a26;
-    --on-surface-variant: #7a7570;
-    --surface-container: #faf8f5;
-    --outline: #ebe7e1;
+    --on-surface-variant: #5c5248;
+    --surface-container: #C4B5A0;
+    --outline: #B8A898;
   }
 
   body {

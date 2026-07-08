@@ -20,7 +20,7 @@ export default function Footer() {
               ].map((social, i) => (
                 <a 
                   key={i}
-                  className="w-10 h-10 rounded-full bg-white border border-outline flex items-center justify-center transition-all hover:border-primary hover:text-primary shadow-sm" 
+                  className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center transition-all hover:border-primary hover:text-primary shadow-sm" 
                   href={social.href}
                 >
                   <span className="material-symbols-outlined text-lg">{social.icon}</span>

@@ -1,14 +1,15 @@
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
 import { useStore } from '../store/useStore';
-import BookingProgressBar from '../components/BookingProgressBar';
 
 export default function BookingSelectService() {
   const navigate = useNavigate();
-  const { bookingData, addToCart, removeFromCart } = useBooking();
+  const { bookingData, addToCart, removeFromCart, clearBooking } = useBooking();
   const { services, deals, fetchServices, fetchDeals, settings } = useStore();
+  const [expandedCategory, setExpandedCategory] = useState(null);
+  const [expandedDetails, setExpandedDetails] = useState({});
 
   useEffect(() => {
     fetchServices();
@@ -49,145 +50,151 @@ export default function BookingSelectService() {
     }
   };
 
-  const handleContinue = () => {
+  const handleContinue = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     if (bookingData.cart.length > 0) {
       navigate('/book/time');
     }
   };
 
-  const featuredDeals = deals.slice(0, 3);
-  const aLaCarte = services;
-  const totalPrice = bookingData.cart.reduce((sum, item) => sum + item.price, 0);
+  const toggleDetails = (cartId, e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setExpandedDetails(prev => ({
+      ...prev,
+      [cartId]: !prev[cartId]
+    }));
+  };
+
   const activeColor = settings.primaryAccent || 'var(--primary)';
+  const totalPrice = bookingData.cart.reduce((sum, item) => sum + item.price, 0);
+
+  // Group services by category, ensuring no deals overlap
+  const categories = [...new Set(services.map(s => s.category))].filter(Boolean);
+
+  const handleToggleCategory = (categoryName) => {
+    setExpandedCategory(expandedCategory === categoryName ? null : categoryName);
+  };
+
+  const renderServiceItem = (item, isDeal = false) => {
+    const cartId = isDeal ? `deal_${item.id}` : `service_${item.id}`;
+    const isSelected = bookingData.cart.some(i => i.id === cartId);
+    const price = isDeal ? item.discountPrice : item.price;
+    const isDetailsExpanded = !!expandedDetails[cartId];
+    
+    return (
+      <div key={cartId} className="flex flex-col p-5 bg-surface border border-outline rounded-xl mb-4 hover:border-gray-300 transition-colors shadow-sm">
+        <div className="flex justify-between items-center w-full">
+          <div>
+            <h4 className="font-headline text-xl text-on-surface mb-1">{item.title}</h4>
+            <div className="text-sm text-on-surface-variant font-medium mb-3 flex items-center gap-2">
+              <span>{item.duration}</span>
+              <span className="w-1 h-1 rounded-full bg-on-surface-variant/50"></span>
+              <span>${price}</span>
+            </div>
+            {item.description && (
+              <button 
+                onClick={(e) => toggleDetails(cartId, e)}
+                className="text-xs font-semibold tracking-wider flex items-center gap-1 transition-opacity hover:opacity-70" 
+                style={{ color: activeColor }}
+              >
+                {isDetailsExpanded ? 'Hide Details' : 'Show Details'} <span className="material-symbols-outlined text-sm">{isDetailsExpanded ? 'expand_less' : 'expand_more'}</span>
+              </button>
+            )}
+          </div>
+          <div className="flex flex-col items-end gap-3 shrink-0">
+             <button
+               onClick={(e) => {
+                 e.preventDefault();
+                 e.stopPropagation();
+                 isDeal ? handleToggleDeal(item) : handleToggleService(item);
+               }}
+               className={`px-8 py-2.5 rounded-lg border font-semibold tracking-wide transition-colors ${isSelected ? 'text-white shadow-md' : 'bg-transparent text-on-surface hover:bg-surface-container'}`}
+               style={{
+                  borderColor: isSelected ? activeColor : 'var(--outline)',
+                  backgroundColor: isSelected ? activeColor : 'transparent'
+               }}
+             >
+               {isSelected ? 'Selected' : 'Select'}
+             </button>
+          </div>
+        </div>
+        <AnimatePresence>
+          {isDetailsExpanded && item.description && (
+            <motion.div
+              initial={{ height: 0, opacity: 0, marginTop: 0 }}
+              animate={{ height: 'auto', opacity: 1, marginTop: 16 }}
+              exit={{ height: 0, opacity: 0, marginTop: 0 }}
+              className="overflow-hidden"
+            >
+              <div className="pt-2 border-t border-outline/50">
+                <p className="text-sm text-on-surface-variant leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
+
+  const renderCategoryAccordion = (categoryName, items, isDeal = false) => {
+    const isExpanded = expandedCategory === categoryName;
+    return (
+      <div key={categoryName} className="border-b border-outline last:border-b-0 py-2">
+        <button 
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            handleToggleCategory(categoryName);
+          }}
+          className="w-full flex justify-between items-center py-5 text-left group"
+        >
+          <div>
+            <h3 className="text-2xl font-headline text-on-surface group-hover:opacity-70 transition-opacity">{categoryName}</h3>
+            <p className="text-[11px] font-bold text-on-surface-variant uppercase tracking-[0.15em] mt-1 opacity-70">
+              {isDeal ? 'Deal' : 'Service'}
+            </p>
+          </div>
+          <span className="text-sm font-bold tracking-widest uppercase flex items-center gap-1 transition-opacity group-hover:opacity-70" style={{ color: activeColor }}>
+            {isExpanded ? 'Collapse' : 'Expand'}
+            <span className="material-symbols-outlined text-lg">{isExpanded ? 'expand_less' : 'expand_more'}</span>
+          </span>
+        </button>
+        <AnimatePresence>
+          {isExpanded && (
+            <motion.div 
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="overflow-hidden"
+            >
+              <div className="pt-2 pb-6">
+                {items.map(item => renderServiceItem(item, isDeal))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    );
+  };
 
   return (
     <div className="bg-surface text-on-surface min-h-screen pt-24 pb-40 flex-grow overflow-x-hidden">
-      <main className="max-w-screen-xl mx-auto px-4 md:px-10">
+      <main className="max-w-screen-md mx-auto px-4 md:px-10">
         
-        <header className="text-center mb-12 md:mb-16">
-          <h1 className="font-headline text-4xl md:text-5xl text-on-surface mb-4">Select Services</h1>
-          <p className="text-lg text-on-surface-variant font-light max-w-2xl mx-auto">
-            Choose from our specialized packages or build your custom treatment plan.
-          </p>
+        <header className="mb-12 md:mb-16">
+          <h1 className="font-headline text-4xl md:text-5xl text-on-surface mb-2">Book your appointment</h1>
         </header>
 
-        <div className="mb-12 max-w-3xl mx-auto">
-          <BookingProgressBar currentStep={1} />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          {/* Left: Packages & Deals */}
-          <section className="lg:col-span-7 space-y-8">
-            <h2 className="font-headline text-3xl text-on-surface">Special Packages</h2>
-
-            {featuredDeals.length > 0 ? (
-              <div className="space-y-6">
-                {/* Main Deal */}
-                <div 
-                  onClick={() => handleToggleDeal(featuredDeals[0])}
-                  className={`editorial-card group overflow-hidden cursor-pointer transition-shadow ${bookingData.cart.find(i => i.id === `deal_${featuredDeals[0].id}`) ? 'ring-2' : ''}`}
-                  style={{ ringColor: bookingData.cart.find(i => i.id === `deal_${featuredDeals[0].id}`) ? activeColor : 'transparent' }}
-                >
-                  <div className="relative h-64 md:h-80 w-full overflow-hidden">
-                    <img alt={featuredDeals[0].title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src={featuredDeals[0].image}/>
-                    <div className="absolute inset-0 bg-black/20"></div>
-                    {bookingData.cart.find(i => i.id === `deal_${featuredDeals[0].id}`) && (
-                      <div className="absolute top-4 right-4 bg-white rounded-full p-1 shadow-md z-20">
-                        <span className="material-symbols-outlined text-2xl" style={{ color: activeColor }}>check_circle</span>
-                      </div>
-                    )}
-                    <div className="absolute bottom-6 left-6 right-6 text-white">
-                      <span className="bg-white text-on-surface text-xs font-bold px-3 py-1 rounded uppercase tracking-widest mb-3 inline-block shadow-sm">
-                        {featuredDeals[0].tag || 'EXCLUSIVE'}
-                      </span>
-                      <div className="flex justify-between items-end">
-                        <div>
-                          <h3 className="font-headline text-3xl md:text-4xl mb-2 shadow-sm">{featuredDeals[0].title}</h3>
-                          <p className="font-light text-white/90 line-clamp-1">{featuredDeals[0].description}</p>
-                        </div>
-                        <div className="text-right shrink-0">
-                          <span className="block font-medium text-3xl mb-1">${featuredDeals[0].discountPrice}</span>
-                          <span className="block text-xs uppercase tracking-wider">{featuredDeals[0].duration}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Secondary Deals */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  {featuredDeals.slice(1, 3).map(deal => {
-                    const isSelected = bookingData.cart.find(i => i.id === `deal_${deal.id}`);
-                    return (
-                      <div 
-                        key={deal.id}
-                        onClick={() => handleToggleDeal(deal)}
-                        className={`editorial-card p-6 md:p-8 cursor-pointer transition-shadow hover:shadow-md ${isSelected ? 'ring-2' : ''}`}
-                        style={{ ringColor: isSelected ? activeColor : 'transparent' }}
-                      >
-                        <div className="flex justify-between mb-4">
-                          <span className="material-symbols-outlined text-2xl transition-colors" style={{ color: isSelected ? activeColor : 'var(--outline)' }}>
-                            {isSelected ? 'check_circle' : 'radio_button_unchecked'}
-                          </span>
-                          <span className="font-medium text-xl text-on-surface">${deal.discountPrice}</span>
-                        </div>
-                        <h4 className="font-headline text-xl mb-3 text-on-surface">{deal.title}</h4>
-                        <p className="text-sm text-on-surface-variant font-light mb-6 line-clamp-2">{deal.description}</p>
-                        <div className="flex items-center text-xs font-semibold text-on-surface-variant uppercase tracking-widest mt-auto">
-                          <span className="material-symbols-outlined text-sm mr-2">schedule</span>
-                          {deal.duration}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            ) : (
-              <div className="py-10 text-on-surface-variant italic font-light">Loading packages...</div>
-            )}
-          </section>
-
-          {/* Right: A La Carte */}
-          <section className="lg:col-span-5">
-            <div className="lg:sticky lg:top-24">
-              <h2 className="font-headline text-3xl text-on-surface mb-6">Individual Services</h2>
-              <div className="space-y-4 max-h-[600px] overflow-y-auto pr-2 custom-scrollbar">
-                {aLaCarte.length > 0 ? aLaCarte.map(item => {
-                  const isSelected = bookingData.cart.find(i => i.id === `service_${item.id}`);
-                  return (
-                    <div 
-                      key={item.id}
-                      onClick={() => handleToggleService(item)}
-                      className={`flex items-center p-5 bg-white border cursor-pointer transition-colors rounded-xl ${isSelected ? 'border-transparent shadow-sm' : 'border-outline hover:border-gray-300 hover:shadow-sm'}`}
-                      style={{ 
-                        borderColor: isSelected ? activeColor : '',
-                        backgroundColor: isSelected ? `${activeColor}10` : 'white'
-                      }}
-                    >
-                      <div className="mr-4">
-                         <span className="material-symbols-outlined text-xl" style={{ color: isSelected ? activeColor : 'var(--outline)' }}>
-                            {isSelected ? 'check_box' : 'check_box_outline_blank'}
-                         </span>
-                      </div>
-                      <div className="flex-grow">
-                        <h4 className="font-headline text-lg text-on-surface mb-1">{item.title}</h4>
-                        <div className="flex items-center gap-3">
-                          <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">{item.category}</span>
-                          <span className="w-1 h-1 bg-outline rounded-full"></span>
-                          <span className="text-xs font-medium text-on-surface-variant">{item.duration}</span>
-                        </div>
-                      </div>
-                      <div className="text-right shrink-0">
-                        <span className="block font-medium text-lg text-on-surface">${item.price}</span>
-                      </div>
-                    </div>
-                  );
-                }) : (
-                  <div className="py-10 text-on-surface-variant italic font-light">Loading individual services...</div>
-                )}
-              </div>
-            </div>
-          </section>
+        <div className="space-y-2">
+          {deals.length > 0 && renderCategoryAccordion('Exclusive Packages', deals, true)}
+          {categories.map(category => {
+            const categoryServices = services.filter(s => s.category === category);
+            return renderCategoryAccordion(category, categoryServices, false);
+          })}
         </div>
       </main>
 
@@ -198,18 +205,29 @@ export default function BookingSelectService() {
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 100, opacity: 0 }}
-            className="fixed bottom-0 left-0 w-full z-[60] bg-white border-t border-outline shadow-[0_-4px_20px_rgba(0,0,0,0.05)]"
+            className="fixed bottom-0 left-0 w-full z-[60] bg-surface border-t border-outline shadow-[0_-4px_20px_rgba(0,0,0,0.05)]"
           >
             <div className="max-w-screen-xl mx-auto px-4 md:px-10 py-4 md:py-6">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-8">
                 
-                <div className="flex items-center gap-4 w-full sm:w-auto">
+                <div className="flex items-center gap-4 w-full sm:w-auto flex-1">
                   <div className="w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center text-white shrink-0 font-bold" style={{ backgroundColor: activeColor }}>
                     {bookingData.cart.length}
                   </div>
-                  <div className="min-w-0">
-                    <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant block mb-1">Your Selection</span>
-                    <h4 className="font-headline text-lg text-on-surface truncate max-w-[200px] md:max-w-md">
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center justify-between gap-4">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant block">Your Selection</span>
+                      <button 
+                        onClick={(e) => {
+                          e.preventDefault();
+                          clearBooking();
+                        }}
+                        className="text-xs font-medium text-red-500 hover:text-red-600 uppercase tracking-wider"
+                      >
+                        Clear All
+                      </button>
+                    </div>
+                    <h4 className="font-headline text-lg text-on-surface truncate max-w-[200px] md:max-w-md mt-1">
                       {bookingData.cart.map(i => i.name).join(' + ')}
                     </h4>
                   </div>

@@ -3,15 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
 import { useStore } from '../store/useStore';
-import BookingProgressBar from '../components/BookingProgressBar';
 
 export default function BookingTimeSelect() {
   const navigate = useNavigate();
-  const { bookingData, updateDateTime, removeFromCart } = useBooking();
+  const { bookingData, updateDateTime } = useBooking();
   const { settings, fetchSettings, bookings, fetchBookings } = useStore();
-  const [selectedDate, setSelectedDate] = useState(bookingData.date || '');
+  
+  // Normalize today to start of day for comparison
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const initialDateStr = bookingData.date || '';
+  const initialDateObj = initialDateStr ? new Date(`${initialDateStr}T00:00:00`) : today;
+
+  const [selectedDate, setSelectedDate] = useState(initialDateStr);
   const [selectedTime, setSelectedTime] = useState(bookingData.time || '');
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [weekOffset, setWeekOffset] = useState(0); // number of weeks offset from current week view
 
   useEffect(() => {
     fetchSettings();
@@ -46,32 +53,35 @@ export default function BookingTimeSelect() {
     return sum + parseDuration(item.duration);
   }, 0) || 0;
   
+  const totalPrice = bookingData.cart?.reduce((sum, item) => sum + item.price, 0) || 0;
+
   const slotInterval = Math.max(10, totalServiceDuration + bufferTime);
 
-  const isDateAvailable = (dateStr) => {
-    if (!dateStr) return false;
-    const d = new Date(dateStr);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+  const isDateAvailable = (d) => {
     const maxDate = new Date();
     maxDate.setDate(today.getDate() + bookingWindow);
     return d >= today && d <= maxDate;
   };
 
-  const getDaysInMonth = (date) => {
-    if (!date) return { firstDay: 0, days: 30 };
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const firstDay = new Date(year, month, 1).getDay();
-    const days = new Date(year, month + 1, 0).getDate();
-    return { firstDay, days };
-  };
+  // Generate the 7 dates to show in the horizontal selector
+  const visibleDates = useMemo(() => {
+    const dates = [];
+    // Base is either the initial selected date week, or just today.
+    const baseDate = new Date(initialDateObj);
+    baseDate.setDate(baseDate.getDate() + (weekOffset * 7));
+    
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(baseDate);
+      d.setDate(baseDate.getDate() + i);
+      dates.push(d);
+    }
+    return dates;
+  }, [weekOffset, initialDateObj]);
 
-  const { firstDay, days } = getDaysInMonth(currentMonth);
+  const currentMonthDisplay = visibleDates.length > 0 ? visibleDates[0].toLocaleString('default', { month: 'long', year: 'numeric' }) : '';
 
   const generateSlots = useMemo(() => {
-    if (!selectedDate || slotInterval <= 0) return [];
-    const slots = [];
+    if (!selectedDate || slotInterval <= 0) return { morning: [], afternoon: [] };
     const startHour = settings.workingHoursStart || '09:00 AM';
     const endHour = settings.workingHoursEnd || '08:00 PM';
     
@@ -93,26 +103,34 @@ export default function BookingTimeSelect() {
     const start = parseTime(startHour);
     const end = parseTime(endHour);
 
-    const current = new Date(selectedDate);
+    const current = new Date(`${selectedDate}T00:00:00`);
     current.setHours(start.hours, start.minutes, 0, 0);
     
-    const endTime = new Date(selectedDate);
+    const endTime = new Date(`${selectedDate}T00:00:00`);
     endTime.setHours(end.hours, end.minutes, 0, 0);
 
     const now = new Date();
-    const isToday = new Date(selectedDate).toDateString() === now.toDateString();
+    const isToday = new Date(`${selectedDate}T00:00:00`).toDateString() === now.toDateString();
 
     let limit = 0;
+    const morningSlots = [];
+    const afternoonSlots = [];
+
     while (current < endTime && limit < 150) { 
       const startStr = current.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-      slots.push({
+      const slotObj = {
         time: startStr,
         isPast: isToday && current <= now
-      });
+      };
+      if (current.getHours() < 12) {
+        morningSlots.push(slotObj);
+      } else {
+        afternoonSlots.push(slotObj);
+      }
       current.setMinutes(current.getMinutes() + slotInterval);
       limit++;
     }
-    return slots;
+    return { morning: morningSlots, afternoon: afternoonSlots };
   }, [selectedDate, settings, slotInterval]);
 
   const handleNext = () => {
@@ -122,151 +140,178 @@ export default function BookingTimeSelect() {
     }
   };
 
-  const changeMonth = (offset) => {
-    const next = new Date(currentMonth);
-    next.setMonth(next.getMonth() + offset);
-    setCurrentMonth(next);
-  };
-
   const activeColor = settings.primaryAccent || 'var(--primary)';
+
+  const renderSlotButton = (slotObj) => {
+    const { time, isPast } = slotObj;
+    const isBooked = bookedSlots.includes(time);
+    const isDisabled = isBooked || isPast;
+    const isSelected = selectedTime === time;
+    return (
+      <button
+        key={time}
+        disabled={isDisabled}
+        onClick={() => !isDisabled && setSelectedTime(time)}
+        className={`px-4 py-2 text-center transition-all border rounded-full text-sm font-medium whitespace-nowrap ${
+          isSelected ? 'text-white border-transparent shadow-md' : 'border-outline hover:border-gray-400 bg-surface text-on-surface'
+        } ${isDisabled ? 'opacity-30 line-through cursor-not-allowed bg-surface' : ''}`}
+        style={{ backgroundColor: isSelected ? activeColor : '' }}
+      >
+         {time}
+      </button>
+    );
+  };
 
   return (
     <div className="bg-surface text-on-surface min-h-screen pb-40 relative overflow-x-hidden pt-24">
       <main className="max-w-screen-xl mx-auto px-4 md:px-10">
         
-        <header className="text-center mb-12 md:mb-16">
-          <h1 className="font-headline text-4xl md:text-5xl text-on-surface mb-4">Select a Time</h1>
-          <p className="text-lg text-on-surface-variant font-light max-w-2xl mx-auto">
-            Choose a date and time for your appointment.
-          </p>
+        <header className="mb-10">
+          <h1 className="font-headline text-3xl md:text-4xl text-on-surface mb-2">Select Date & Time</h1>
         </header>
 
-        <div className="mb-16 max-w-3xl mx-auto">
-          <BookingProgressBar currentStep={2} />
-        </div>
-
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
-          {/* Calendar Section */}
-          <div className="lg:col-span-8 bg-white p-8 md:p-12 border border-outline rounded-2xl shadow-sm">
-            <div className="flex items-center justify-between mb-10">
-              <h2 className="text-2xl md:text-3xl font-headline">{currentMonth.toLocaleString('default', { month: 'long', year: 'numeric' })}</h2>
-              <div className="flex gap-4">
-                <button onClick={() => changeMonth(-1)} className="w-10 h-10 flex items-center justify-center bg-surface-container hover:bg-outline rounded-full transition-colors">
-                  <span className="material-symbols-outlined text-sm">chevron_left</span>
+          
+          {/* Calendar & Slots Section */}
+          <div className="lg:col-span-8 flex flex-col gap-8">
+            
+            {/* Horizontal Date Selector */}
+            <div className="bg-surface border border-outline rounded-xl overflow-hidden shadow-sm">
+              {/* Header */}
+              <div className="px-6 py-4 border-b border-outline flex justify-between items-center bg-surface">
+                <span className="font-headline text-lg">{currentMonthDisplay}</span>
+                <span className="material-symbols-outlined text-on-surface-variant cursor-pointer">calendar_month</span>
+              </div>
+              
+              {/* Dates */}
+              <div className="px-4 py-6 flex items-center justify-between">
+                <button onClick={() => setWeekOffset(weekOffset - 1)} className="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+                  <span className="material-symbols-outlined">chevron_left</span>
                 </button>
-                <button onClick={() => changeMonth(1)} className="w-10 h-10 flex items-center justify-center bg-surface-container hover:bg-outline rounded-full transition-colors">
-                  <span className="material-symbols-outlined text-sm">chevron_right</span>
+                
+                <div className="flex-grow flex justify-center items-center gap-2 md:gap-4 overflow-x-auto hide-scrollbar px-2">
+                  {visibleDates.map(d => {
+                    const isToday = d.toDateString() === today.toDateString();
+                    const available = isDateAvailable(d);
+                    const year = d.getFullYear();
+                    const month = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    const dateStr = `${year}-${month}-${day}`;
+                    const selected = selectedDate === dateStr;
+
+                    return (
+                      <button
+                        key={dateStr}
+                        disabled={!available}
+                        onClick={() => { setSelectedDate(dateStr); setSelectedTime(''); }}
+                        className={`flex flex-col items-center gap-2 shrink-0 ${!available ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer group'}`}
+                      >
+                        <span className="text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+                          {isToday ? 'Today' : d.toLocaleDateString('en-US', { weekday: 'short' })}
+                        </span>
+                        <div 
+                          className={`w-12 h-12 flex items-center justify-center rounded-full text-lg transition-all ${
+                            selected ? 'text-white shadow-md' : 'text-on-surface bg-surface border border-transparent group-hover:border-outline'
+                          }`}
+                          style={{ backgroundColor: selected ? activeColor : '' }}
+                        >
+                          {d.getDate()}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <button onClick={() => setWeekOffset(weekOffset + 1)} className="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+                  <span className="material-symbols-outlined">chevron_right</span>
                 </button>
               </div>
             </div>
 
-            <div className="grid grid-cols-7 gap-2 md:gap-4">
-              {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(d => (
-                <div key={d} className="text-xs font-semibold text-on-surface-variant text-center pb-4 uppercase tracking-wider">{d}</div>
-              ))}
-              {Array(firstDay).fill(0).map((_, i) => <div key={`empty-${i}`} />)}
-              {Array(days).fill(0).map((_, i) => {
-                const day = i + 1;
-                const dateStr = `${currentMonth.getFullYear()}-${String(currentMonth.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-                const available = isDateAvailable(dateStr);
-                const selected = selectedDate === dateStr;
-
-                return (
-                  <button
-                    key={day}
-                    disabled={!available}
-                    onClick={() => { setSelectedDate(dateStr); setSelectedTime(''); }}
-                    className={`aspect-square flex flex-col items-center justify-center transition-all duration-300 relative rounded-xl text-lg font-medium
-                      ${!available ? 'opacity-20 cursor-not-allowed bg-transparent' : 'hover:bg-surface-container'}
-                      ${selected ? 'text-white shadow-md' : 'text-on-surface'}
-                    `}
-                    style={{ backgroundColor: selected ? activeColor : '' }}
-                  >
-                    <span className="relative z-10">{day}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Slots Section */}
-          <div className="lg:col-span-4 flex flex-col gap-8">
-            
-            <div className="bg-white p-6 md:p-8 border border-outline rounded-2xl shadow-sm">
-              <h3 className="text-xl font-headline mb-4">Your Selection</h3>
-              {bookingData.cart.length > 0 ? (
-                <div className="space-y-3">
-                  {bookingData.cart.map((item) => (
-                    <div key={item.id} className="flex items-center gap-3 p-3 bg-surface border border-outline rounded-xl">
-                      <div className="w-10 h-10 rounded overflow-hidden shrink-0">
-                        <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
-                      </div>
-                      <div className="min-w-0 flex-grow">
-                        <h4 className="text-sm font-semibold truncate text-on-surface">{item.name}</h4>
-                        <span className="text-xs text-on-surface-variant">{item.duration}</span>
-                      </div>
-                      <button 
-                        onClick={() => removeFromCart(item.id)}
-                        className="text-on-surface-variant hover:text-red-500 transition-colors p-1"
-                      >
-                        <span className="material-symbols-outlined text-sm">close</span>
-                      </button>
-                    </div>
-                  ))}
+            {/* Slots Area */}
+            {selectedDate && (
+              <div className="mt-4">
+                <div className="mb-6">
+                   <h3 className="font-headline text-lg mb-1">
+                     Availability for {new Date(`${selectedDate}T00:00:00`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                   </h3>
+                   <p className="text-xs text-on-surface-variant">All dates and times are displayed in the location's timezone.</p>
                 </div>
-              ) : (
-                <p className="text-sm text-on-surface-variant">No items selected.</p>
-              )}
-            </div>
 
-            <div className="bg-white p-6 md:p-8 border border-outline rounded-2xl shadow-sm flex flex-col min-h-[300px]">
-              <h3 className="text-xl font-headline mb-6">Available Times</h3>
-              
-              <div className="flex-grow overflow-y-auto pr-2 custom-scrollbar max-h-[350px]">
-                {selectedDate ? (
-                  <div className="grid grid-cols-2 gap-3">
-                    {generateSlots.length > 0 ? generateSlots.map(({ time, isPast }) => {
-                      const isBooked = bookedSlots.includes(time);
-                      const isDisabled = isBooked || isPast;
-                      const isSelected = selectedTime === time;
-                      return (
-                      <button
-                        key={time}
-                        disabled={isDisabled}
-                        onClick={() => !isDisabled && setSelectedTime(time)}
-                        className={`p-3 text-center transition-all border rounded-xl text-sm font-medium ${
-                          isSelected ? 'text-white border-transparent shadow-md' : 'border-outline hover:border-gray-400 bg-surface text-on-surface'
-                        } ${isDisabled ? 'opacity-30 line-through cursor-not-allowed bg-surface-container' : ''}`}
-                        style={{ backgroundColor: isSelected ? activeColor : '' }}
-                      >
-                         {time}
-                      </button>
-                    )}) : (
-                      <div className="col-span-full py-10 text-center text-on-surface-variant text-sm font-light">No availability for this date.</div>
-                    )}
-                  </div>
+                {generateSlots.morning.length === 0 && generateSlots.afternoon.length === 0 ? (
+                  <div className="py-10 text-on-surface-variant text-sm font-light">No availability for this date.</div>
                 ) : (
-                  <div className="h-full flex flex-col items-center justify-center text-center py-10">
-                    <span className="material-symbols-outlined text-3xl text-on-surface-variant mb-4 opacity-50">event_available</span>
-                    <p className="text-sm text-on-surface-variant font-light">Choose a date to view available times.</p>
+                  <div className="space-y-8">
+                    {/* Morning */}
+                    {generateSlots.morning.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold text-sm mb-4 text-on-surface">Morning</h4>
+                        <div className="flex flex-wrap gap-3">
+                          {generateSlots.morning.map(renderSlotButton)}
+                        </div>
+                      </div>
+                    )}
+                    
+                    {/* Afternoon */}
+                    {generateSlots.afternoon.length > 0 && (
+                      <div>
+                        <h4 className="font-semibold text-sm mb-4 text-on-surface">Afternoon</h4>
+                        <div className="flex flex-wrap gap-3">
+                          {generateSlots.afternoon.map(renderSlotButton)}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 )}
               </div>
+            )}
+          </div>
 
-              <div className="mt-8 pt-6 border-t border-outline flex justify-between items-center gap-4">
-                 <button 
-                   onClick={() => navigate('/book')} 
-                   className="text-sm font-semibold tracking-wider text-on-surface-variant uppercase hover:text-on-surface transition-colors"
-                 >
-                   Back
-                 </button>
-                 <button 
-                  onClick={handleNext}
-                  disabled={!selectedDate || !selectedTime}
-                  className="premium-btn px-8 py-3 w-full sm:w-auto disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Continue
-                </button>
+          {/* Right Sidebar: Appointment Details */}
+          <div className="lg:col-span-4">
+            <div className="bg-surface border border-outline rounded-xl shadow-sm sticky top-24">
+              <div className="p-6 border-b border-outline">
+                <h3 className="font-headline text-xl">Appointment Details</h3>
+              </div>
+              <div className="p-6">
+                {bookingData.cart.length > 0 ? (
+                  <div className="space-y-4">
+                    {bookingData.cart.map(item => (
+                      <div key={item.id} className="text-on-surface font-semibold text-base mb-1">
+                        {item.name}
+                      </div>
+                    ))}
+                    
+                    <div className="text-sm text-on-surface-variant space-y-1.5 mt-4 font-medium">
+                      <p>
+                        {selectedDate 
+                          ? new Date(`${selectedDate}T00:00:00`).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })
+                          : 'Select a Date'}
+                      </p>
+                      <p>{selectedTime ? selectedTime : 'Select a Time'}</p>
+                      <p>{totalServiceDuration} min</p>
+                      <p className="mt-4 pt-4 border-t border-outline">Starting at: ${totalPrice.toFixed(2)}</p>
+                    </div>
+                  </div>
+                ) : (
+                  <p className="text-sm text-on-surface-variant">No items selected.</p>
+                )}
+
+                <div className="mt-8">
+                  <button 
+                    onClick={handleNext}
+                    disabled={!selectedDate || !selectedTime}
+                    className="premium-btn py-3 w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    Continue
+                  </button>
+                  <button 
+                    onClick={() => navigate('/book')} 
+                    className="mt-4 text-sm font-semibold tracking-wider text-on-surface-variant uppercase hover:text-on-surface transition-colors w-full text-center"
+                  >
+                    Back
+                  </button>
+                </div>
               </div>
             </div>
           </div>

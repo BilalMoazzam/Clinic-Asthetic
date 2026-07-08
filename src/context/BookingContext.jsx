@@ -1,81 +1,47 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useCallback } from 'react';
 
 const BookingContext = createContext();
 
 export function BookingProvider({ children }) {
-  const [bookingData, setBookingData] = useState(() => {
-    const saved = localStorage.getItem('vlasBookingData');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        // Robust validation to prevent crashes from legacy data structures
-        return {
-          cart: Array.isArray(parsed.cart) ? parsed.cart : [],
-          voucher: parsed.voucher || null,
-          date: parsed.date || null,
-          time: parsed.time || null,
-          client: parsed.client && typeof parsed.client === 'object' ? {
-            firstName: parsed.client.firstName || '',
-            lastName: parsed.client.lastName || '',
-            email: parsed.client.email || '',
-            phone: parsed.client.phone || '',
-            notes: parsed.client.notes || ''
-          } : {
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-            notes: ''
-          }
-        };
-      } catch (e) {
-        console.error("Error parsing booking data", e);
-      }
+  const [bookingData, setBookingData] = useState({
+    cart: [],
+    voucher: null,
+    date: null,
+    time: null,
+    client: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      notes: ''
     }
-    return {
-      cart: [],
-      voucher: null,
-      date: null,
-      time: null,
-      client: {
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-        notes: ''
-      }
-    };
   });
 
-  useEffect(() => {
-    localStorage.setItem('vlasBookingData', JSON.stringify(bookingData));
-  }, [bookingData]);
-
-  const addToCart = (item) => {
+  const addToCart = useCallback((item) => {
     setBookingData(prev => {
       const exists = prev.cart.find(i => i.id === item.id);
       if (exists) return prev;
       return { ...prev, cart: [...prev.cart, item] };
     });
-  };
+  }, []);
 
-  const removeFromCart = (itemId) => {
+  const removeFromCart = useCallback((itemId) => {
     setBookingData(prev => ({
       ...prev,
       cart: prev.cart.filter(i => i.id !== itemId)
     }));
-  };
+  }, []);
 
-  const updateVoucher = (voucher) => setBookingData(prev => ({ ...prev, voucher }));
-  const updateDateTime = (date, time) => setBookingData(prev => ({ ...prev, date, time }));
-  const updateClient = (client) => setBookingData(prev => ({ ...prev, client }));
-  const clearBooking = () => setBookingData({
+  const updateVoucher = useCallback((voucher) => setBookingData(prev => ({ ...prev, voucher })), []);
+  const updateDateTime = useCallback((date, time) => setBookingData(prev => ({ ...prev, date, time })), []);
+  const updateClient = useCallback((client) => setBookingData(prev => ({ ...prev, client })), []);
+  const clearBooking = useCallback(() => setBookingData({
     cart: [],
     voucher: null,
     date: null,
     time: null,
     client: { firstName: '', lastName: '', email: '', phone: '', notes: '' }
-  });
+  }), []);
 
   return (
     <BookingContext.Provider value={{ 

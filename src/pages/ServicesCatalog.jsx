@@ -54,7 +54,7 @@ export default function ServicesCatalog() {
                     alt={service.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4 bg-white px-3 py-1 rounded text-xs font-semibold tracking-widest uppercase shadow-sm" style={{ color: activeColor }}>
+                  <div className="absolute top-4 left-4 bg-surface px-3 py-1 rounded text-xs font-semibold tracking-widest uppercase shadow-sm" style={{ color: activeColor }}>
                     {service.category}
                   </div>
                   {isSelected && (

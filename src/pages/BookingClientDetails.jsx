@@ -88,7 +88,7 @@ export default function BookingClientDetails() {
         <div className="flex flex-col lg:flex-row lg:gap-16 items-start">
           {/* Form Side */}
           <div className="w-full lg:flex-1 max-w-3xl">
-            <div className="bg-white p-8 md:p-12 border border-outline rounded-2xl shadow-sm mb-8">
+            <div className="bg-surface p-8 md:p-12 border border-outline rounded-2xl shadow-sm mb-8">
               <h2 className="text-2xl font-headline mb-8">Client Information</h2>
               
               <form className="space-y-8" onSubmit={handleContinue}>
@@ -149,7 +149,7 @@ export default function BookingClientDetails() {
               </form>
             </div>
 
-            <div className="bg-white p-8 border border-outline rounded-2xl shadow-sm">
+            <div className="bg-surface p-8 border border-outline rounded-2xl shadow-sm">
               <h3 className="text-xl font-headline mb-4">Promo Code or Gift Card</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <input 
@@ -180,7 +180,7 @@ export default function BookingClientDetails() {
 
           {/* Sidebar Summary */}
           <aside className="w-full lg:w-[400px] shrink-0 mt-8 lg:mt-0">
-            <div className="bg-white border border-outline rounded-2xl shadow-md lg:sticky lg:top-24 overflow-hidden">
+            <div className="bg-surface border border-outline rounded-2xl shadow-md lg:sticky lg:top-24 overflow-hidden">
               <div className="p-6 md:p-8 bg-surface-container">
                 <h3 className="text-xl font-headline mb-6">Booking Summary</h3>
 

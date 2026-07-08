@@ -121,7 +121,7 @@ export default function VelvetLuxe() {
           {tiers.map((tier, i) => (
             <div 
               key={i} 
-              className="bg-white border border-outline p-8 md:p-12 flex flex-col rounded-2xl shadow-sm hover:shadow-xl transition-shadow"
+              className="bg-surface border border-outline p-8 md:p-12 flex flex-col rounded-2xl shadow-sm hover:shadow-xl transition-shadow"
             >
               <div className="text-center mb-10">
                 <h3 className="text-3xl font-headline mb-4 text-on-surface">

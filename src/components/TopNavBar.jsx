@@ -2,11 +2,13 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '../store/useStore';
+import { useBooking } from '../context/BookingContext';
 
 export default function TopNavBar() {
   const { settings } = useStore();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { clearBooking } = useBooking();
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -17,26 +19,8 @@ export default function TopNavBar() {
 
   return (
     <>
-      {/* Utility Bar */}
-      {/* <div className="bg-surface-container text-on-surface-variant text-xs py-2 px-4 md:px-10 border-b border-outline hidden sm:block">
-        <div className="max-w-screen-2xl mx-auto flex justify-between items-center">
-          <div className="flex gap-4">
-            <a href="tel:+15552026852" className="flex items-center gap-1 hover:text-primary transition-colors">
-              <span className="material-symbols-outlined text-[14px]">call</span>
-              <span>+1 (555) 202-6852</span>
-            </a>
-          </div>
-          <div className="flex gap-4">
-            <span className="flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px]">location_on</span>
-              <span>1022 Velvet Lane, London</span>
-            </span>
-          </div>
-        </div>
-      </div> */}
-
       {/* Main Nav */}
-      <nav className="bg-white/95 backdrop-blur-md sticky top-0 z-50 border-b border-outline shadow-sm">
+      <nav className="sticky top-0 z-50 border-b border-outline shadow-sm" style={{ backgroundColor: '#CDBFAC' }}>
         <div className="flex justify-between items-center w-full px-4 md:px-10 py-4 max-w-screen-2xl mx-auto">
           <div>
             <Link to="/" className="text-2xl md:text-3xl font-headline text-on-surface group flex items-center gap-3">
@@ -66,6 +50,7 @@ export default function TopNavBar() {
             <div className="hidden sm:block">
               <Link 
                 to="/book" 
+                onClick={() => clearBooking()}
                 className="premium-btn"
                 style={{ backgroundColor: settings.primaryAccent }}
               >
@@ -92,7 +77,8 @@ export default function TopNavBar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white border-t border-outline overflow-hidden"
+              className="lg:hidden border-t border-outline overflow-hidden" 
+              style={{ backgroundColor: '#CDBFAC' }}
             >
               <div className="flex flex-col p-6 gap-4">
                 {navLinks.map((link) => (
@@ -109,7 +95,10 @@ export default function TopNavBar() {
                 <div className="pt-4 border-t border-outline sm:hidden mt-2">
                   <Link 
                     to="/book" 
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    onClick={() => {
+                      clearBooking();
+                      setIsMobileMenuOpen(false);
+                    }}
                     className="premium-btn block text-center"
                     style={{ backgroundColor: settings.primaryAccent }}
                   >

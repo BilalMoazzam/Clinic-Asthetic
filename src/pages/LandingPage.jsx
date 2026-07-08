@@ -76,7 +76,7 @@ export default function LandingPage() {
           >
             <Link 
               to="/book" 
-              className="inline-block bg-white text-on-surface px-10 py-4 rounded font-semibold tracking-wider uppercase hover:bg-surface-container transition-colors shadow-lg text-sm"
+              className="inline-block bg-surface text-on-surface px-10 py-4 rounded font-semibold tracking-wider uppercase hover:bg-surface-container transition-colors shadow-lg text-sm"
             >
               Book Your Appointment
             </Link>
@@ -104,7 +104,7 @@ export default function LandingPage() {
                     alt={service.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4 bg-white px-3 py-1 rounded text-xs font-semibold tracking-widest uppercase shadow-sm" style={{ color: activeColor }}>
+                  <div className="absolute top-4 left-4 bg-surface px-3 py-1 rounded text-xs font-semibold tracking-widest uppercase shadow-sm" style={{ color: activeColor }}>
                     {service.category}
                   </div>
                 </div>
@@ -173,7 +173,7 @@ export default function LandingPage() {
       {mainDeal && (
         <section className="py-16 md:py-24 px-4 md:px-10 bg-surface-container relative overflow-hidden">
           <div className="max-w-screen-xl mx-auto">
-            <div className="bg-white rounded-2xl overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-2 items-center">
+            <div className="bg-surface rounded-2xl overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-2 items-center">
               <div className="aspect-square md:aspect-auto md:h-full relative">
                 <img 
                   src={mainDeal.image} 
@@ -206,7 +206,7 @@ export default function LandingPage() {
       )}
 
       {/* Testimonial */}
-      <section className="py-20 md:py-32 px-4 border-y border-outline bg-white">
+      <section className="py-20 md:py-32 px-4 border-y border-outline bg-surface">
         <div className="max-w-screen-md mx-auto text-center">
           <div className="mb-8">
             {[1,2,3,4,5].map(i => (

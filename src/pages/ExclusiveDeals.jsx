@@ -54,7 +54,7 @@ export default function ExclusiveDeals() {
                     className="w-full h-full object-cover absolute inset-0"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="bg-white px-4 py-2 text-xs font-bold uppercase tracking-widest shadow-md rounded" style={{ color: activeColor }}>
+                    <span className="bg-surface px-4 py-2 text-xs font-bold uppercase tracking-widest shadow-md rounded" style={{ color: activeColor }}>
                       {deal.tag || 'Special Offer'}
                     </span>
                   </div>

@@ -93,7 +93,7 @@ export default function BookingConfirmation() {
           <div className="max-w-2xl mx-auto mb-16 space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {bookingData.cart.map((item) => (
-                <div key={item.id} className="flex items-center gap-4 p-4 bg-white border border-outline rounded-xl shadow-sm">
+                <div key={item.id} className="flex items-center gap-4 p-4 bg-surface border border-outline rounded-xl shadow-sm">
                   <div className="w-12 h-12 rounded overflow-hidden shrink-0">
                     <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                   </div>
@@ -106,7 +106,7 @@ export default function BookingConfirmation() {
             </div>
           </div>
 
-          <div className="bg-white border border-outline rounded-2xl shadow-sm p-8 max-w-2xl mx-auto text-left mb-12">
+          <div className="bg-surface border border-outline rounded-2xl shadow-sm p-8 max-w-2xl mx-auto text-left mb-12">
             <div className="space-y-4">
               <div className="flex justify-between items-center border-b border-outline pb-4">
                 <span className="text-on-surface-variant font-medium">Date & Time</span>
@@ -156,17 +156,17 @@ export default function BookingConfirmation() {
 
         {/* Final Information Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <div className="bg-white p-8 border border-outline rounded-xl shadow-sm text-center md:text-left">
+          <div className="bg-surface p-8 border border-outline rounded-xl shadow-sm text-center md:text-left">
             <span className="material-symbols-outlined mb-4 text-3xl" style={{ color: activeColor }}>location_on</span>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-on-surface-variant mb-2">Location</h4>
             <p className="text-base text-on-surface">123 Aesthetic Avenue<br/>Suite 400</p>
           </div>
-          <div className="bg-white p-8 border border-outline rounded-xl shadow-sm text-center md:text-left">
+          <div className="bg-surface p-8 border border-outline rounded-xl shadow-sm text-center md:text-left">
             <span className="material-symbols-outlined mb-4 text-3xl" style={{ color: activeColor }}>info</span>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-on-surface-variant mb-2">Arrival</h4>
             <p className="text-base text-on-surface">Please arrive 15 minutes prior to your appointment time.</p>
           </div>
-          <div className="bg-white p-8 border border-outline rounded-xl shadow-sm text-center md:text-left">
+          <div className="bg-surface p-8 border border-outline rounded-xl shadow-sm text-center md:text-left">
             <span className="material-symbols-outlined mb-4 text-3xl" style={{ color: activeColor }}>call</span>
             <h4 className="text-sm font-semibold uppercase tracking-wider text-on-surface-variant mb-2">Questions?</h4>
             <p className="text-base text-on-surface">+1 (555) 000-0000<br/>contact@vlas.com</p>
