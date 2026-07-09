@@ -67,7 +67,7 @@ export default function LandingPage() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-white/90 font-light mb-10 max-w-2xl mx-auto"
           >
-            Experience premium aesthetic treatments in a serene environment designed for your absolute relaxation.
+            Experiencepremium aesthetic treatments in a serene environment designed for your absolute relaxation.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -78,7 +78,7 @@ export default function LandingPage() {
               to="/book" 
               className="inline-block bg-surface text-on-surface px-10 py-4 rounded font-semibold tracking-wider uppercase hover:bg-surface-container transition-colors shadow-lg text-sm"
             >
-              Book Your Appointment
+              Book Your appointment
             </Link>
           </motion.div>
         </div>
