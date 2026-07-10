@@ -207,8 +207,14 @@ export default function LandingPage() {
 
       {/* Testimonial */}
       <section className="py-20 md:py-32 px-4 border-y border-outline bg-white">
-<section className="py-20 md:py-32 px-4 border-y border-outline bg-surface">
-ever looked better. Highly recommend to anyone looking for premium care."
+        <div className="max-w-screen-md mx-auto text-center">
+          <div className="mb-8">
+            {[1,2,3,4,5].map(i => (
+              <span key={i} className="material-symbols-outlined text-2xl mx-1" style={{ color: activeColor }}>star</span>
+            ))}
+          </div>
+          <h3 className="text-2xl md:text-4xl font-headline leading-relaxed text-on-surface mb-8">
+            "The most relaxing and professional experience I've ever had. My skin has never looked better. Highly recommend to anyone looking for premium care."
           </h3>
           <p className="text-sm font-semibold tracking-widest uppercase text-on-surface-variant">
             — Sarah M.
