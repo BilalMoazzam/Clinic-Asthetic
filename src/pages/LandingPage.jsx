@@ -170,7 +170,7 @@ export default function LandingPage() {
       </section>
 
       {/* Featured Deal */}
-      {mainDeal & (
+      {mainDeal && (
         <section className="py-16 md:py-24 px-4 md:px-10 bg-surface-container relative overflow-hidden">
           <div className="max-w-screen-xl mx-auto">
             <div className="bg-white rounded-2xl overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-2 items-center">
