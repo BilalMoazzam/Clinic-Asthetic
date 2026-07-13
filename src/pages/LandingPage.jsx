@@ -145,7 +145,7 @@ export default function LandingPage() {
             <h2 className="text-4xl md:text-5xl font-headline mb-6">Our Approach</h2>
             <div className="w-16 h-1 mb-8" style={{ backgroundColor: activeColor }}></div>
             <p className="text-lg text-on-surface-variant font-light leading-relaxed mb-6">
-              A t {settings.brandName || 'VLAS'}, we believe that beauty is personal. Our experienced team combines advanced techniques with premium products to deliver results that enhance your unique features.
+              At {settings.brandName || 'VLAS'}, we believe that beauty is personal. Our experienced team combines advanced techniques with premium products to deliver results that enhance your unique features.
             </p>
             <p className="text-lg text-on-surface-variant font-light leading-relaxed mb-10">
               Step into our relaxing sanctuary and let us take care of the rest. Every treatment is a personalized experience designed for your ultimate comfort and satisfaction.
