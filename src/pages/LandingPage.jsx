@@ -148,7 +148,7 @@ export default function LandingPage() {
               At {settings.brandName || 'VLAS'}, we believe that beauty is personal. Our experienced team combines advanced techniques with premium products to deliver results that enhance your unique features.
             </p>
             <p className="text-lg text-on-surface-variant font-light leading-relaxed mb-10">
-              Step into our relaxing sanctuary and let us take care of the rest. Every treatment is a personalized experience designed for your ultimate comfort and satisfaction.
+              Stepinto our relaxing sanctuary and let us take care of the rest. Every treatment is a personalized experience designed for your ultimate comfort and satisfaction.
             </p>
             <div className="grid grid-cols-2 gap-8">
               <div>
