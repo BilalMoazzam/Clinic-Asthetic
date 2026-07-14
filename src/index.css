@@ -31,7 +31,6 @@
   /* Kill all browser blue focus outlines globally */
   *:focus {
     outline: none !important;
-    box-shadow: 0 0 0 2px #86626E !important;
   }
 
   a {

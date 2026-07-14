@@ -9,8 +9,8 @@ export default function Footer() {
       <div className="max-w-screen-2xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
-            <div className="text-3xl font-headline text-on-surface mb-6">{settings.brandName || 'VLAS'}</div>
-            <p className="text-on-surface-variant text-sm font-normal leading-relaxed mb-8 max-w-xs">
+            <div className="text-3xl font-headline text-black mb-6">{settings.brandName || 'VLAS'}</div>
+            <p className="text-black text-sm font-normal leading-relaxed mb-8 max-w-xs">
               The digital curator of luxury aesthetic solutions. Redefining elegance through science and serenity.
             </p>
             <div className="flex gap-3">
@@ -30,7 +30,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="font-headline text-lg mb-6 text-on-surface">Quick Links</h4>
+            <h4 className="font-headline text-lg mb-6 text-black">Quick Links</h4>
             <ul className="space-y-3">
               {[
                 { name: 'Home', path: '/' },
@@ -40,7 +40,7 @@ export default function Footer() {
               ].map(link => (
                 <li key={link.name}>
                   <Link 
-                    className="text-sm text-on-surface-variant transition-colors hover:opacity-80" 
+                    className="text-sm text-black transition-colors hover:opacity-80" 
                     to={link.path}
                   >
                     {link.name}
@@ -51,7 +51,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-headline text-lg mb-6 text-on-surface">Resources</h4>
+            <h4 className="font-headline text-lg mb-6 text-black">Resources</h4>
             <ul className="space-y-3">
               {[
                 { name: 'Skin Science', path: '#' },
@@ -61,7 +61,7 @@ export default function Footer() {
               ].map(link => (
                 <li key={link.name}>
                   <a 
-                    className="text-sm text-on-surface-variant transition-colors hover:opacity-80" 
+                    className="text-sm text-black transition-colors hover:opacity-80" 
                     href={link.path}
                   >
                     {link.name}
@@ -72,31 +72,31 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-headline text-lg mb-6 text-on-surface">Contact Us</h4>
+            <h4 className="font-headline text-lg mb-6 text-black">Contact Us</h4>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <span className="material-symbols-outlined text-base mt-0.5 text-primary">location_on</span>
-                <span className="text-sm text-on-surface-variant leading-relaxed">1022 Velvet Lane, <br/>London W1S 2PS</span>
+                <span className="text-sm text-black leading-relaxed">1022 Velvet Lane, <br/>London W1S 2PS</span>
               </li>
               <li className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-base text-primary">call</span>
-                <span className="text-sm text-on-surface-variant">+44 20 7946 0122</span>
+                <span className="text-sm text-black">+44 20 7946 0122</span>
               </li>
               <li className="flex items-center gap-3">
                 <span className="material-symbols-outlined text-base text-primary">mail</span>
-                <span className="text-sm text-on-surface-variant">concierge@vlas.com</span>
+                <span className="text-sm text-black">concierge@vlas.com</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="pt-8 border-t border-outline flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-on-surface-variant text-center md:text-left">
+          <p className="text-xs text-black text-center md:text-left">
             © {new Date().getFullYear()} {settings.brandName || 'VLAS'} AESTHETIC SOLUTIONS. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a className="text-xs text-on-surface-variant hover:opacity-80 transition-colors" href="#">Privacy Policy</a>
-            <a className="text-xs text-on-surface-variant hover:opacity-80 transition-colors" href="#">Terms of Service</a>
+            <a className="text-xs text-black hover:opacity-80 transition-colors" href="#">Privacy Policy</a>
+            <a className="text-xs text-black hover:opacity-80 transition-colors" href="#">Terms of Service</a>
           </div>
         </div>
       </div>

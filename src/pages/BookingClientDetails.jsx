@@ -139,10 +139,10 @@ export default function BookingClientDetails() {
                         autoComplete="tel"
                         maxLength={10}
                         className="flex-1 bg-transparent py-3 px-3 text-on-surface outline-none"
-                        placeholder="3XX-XXXXXXX"
+                        placeholder="3XXXXXXXXX"
                       />
                     </div>
-                    <p className="text-xs text-on-surface-variant mt-1 opacity-70">Format: +92 3XX-XXXXXXX (10 digits)</p>
+                    <p className="text-xs text-on-surface-variant mt-1 opacity-70">Format: +92 3XXXXXXXXX (10 digits)</p>
                   </div>
                   <div>
                     <label className="text-sm font-semibold uppercase tracking-wider text-on-surface-variant mb-2 block">Email Address *</label>
