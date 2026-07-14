@@ -84,7 +84,7 @@ export default function BookingSelectService() {
     const isDetailsExpanded = !!expandedDetails[cartId];
     
     return (
-      <div key={cartId} className="flex flex-col p-5 bg-surface border border-outline rounded-xl mb-4 hover:border-gray-300 transition-colors shadow-sm">
+      <div key={cartId} className="flex flex-col p-5 bg-surface border border-primary rounded-xl mb-4 shadow-sm">
         <div className="flex justify-between items-center w-full">
           <div>
             <h4 className="font-headline text-xl text-on-surface mb-1">{item.title}</h4>
@@ -112,7 +112,7 @@ export default function BookingSelectService() {
                }}
                className={`px-8 py-2.5 rounded-lg border font-semibold tracking-wide transition-colors ${isSelected ? 'text-white shadow-md' : 'bg-transparent text-on-surface hover:bg-surface-container'}`}
                style={{
-                  borderColor: isSelected ? activeColor : 'var(--outline)',
+                  borderColor: activeColor,
                   backgroundColor: isSelected ? activeColor : 'transparent'
                }}
              >
@@ -128,7 +128,7 @@ export default function BookingSelectService() {
               exit={{ height: 0, opacity: 0, marginTop: 0 }}
               className="overflow-hidden"
             >
-              <div className="pt-2 border-t border-outline/50">
+              <div className="pt-2 border-t border-primary">
                 <p className="text-sm text-on-surface-variant leading-relaxed">
                   {item.description}
                 </p>
