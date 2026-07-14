@@ -59,29 +59,32 @@ export default function ExclusiveDeals() {
                     </span>
                   </div>
                 </div>
-                <div className={`p-8 md:p-12 lg:p-16 flex flex-col justify-center ${idx % 2 === 1 ? 'md:order-1' : ''}`}>
-                  <h2 className="text-3xl md:text-4xl font-headline mb-4 text-on-surface">{deal.title}</h2>
-                  <p className="text-lg text-on-surface-variant font-light leading-relaxed mb-8">
+                <div className={`bg-primary p-8 md:p-12 lg:p-16 flex flex-col justify-center ${idx % 2 === 1 ? 'md:order-1' : ''}`}>
+                  <span className="text-xs font-bold tracking-widest uppercase mb-4 block text-white opacity-80">
+                    {deal.tag || 'Special Offer'}
+                  </span>
+                  <h2 className="text-3xl md:text-4xl font-headline mb-4 text-white">{deal.title}</h2>
+                  <p className="text-lg text-white opacity-90 font-light leading-relaxed mb-8">
                     {deal.description}
                   </p>
                   
-                  <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-outline">
-                    <div className="flex items-center gap-4">
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-white/20">
+                    <div className="flex items-center gap-4 text-white">
                       <div className="flex flex-col">
-                        <span className="text-xs font-semibold tracking-wider text-on-surface-variant uppercase mb-1">Value</span>
-                        <span className="text-xl font-medium text-on-surface-variant line-through">${deal.originalPrice}</span>
+                        <span className="text-xs font-semibold tracking-wider uppercase mb-1 opacity-80">Value</span>
+                        <span className="text-xl font-medium line-through opacity-80">${deal.originalPrice}</span>
                       </div>
-                      <div className="w-px h-10 bg-outline mx-2"></div>
+                      <div className="w-px h-10 bg-white/20 mx-2"></div>
                       <div className="flex flex-col">
-                        <span className="text-xs font-semibold tracking-wider uppercase mb-1" style={{ color: activeColor }}>Now</span>
-                        <span className="text-3xl font-headline" style={{ color: activeColor }}>${deal.discountPrice}</span>
+                        <span className="text-xs font-semibold tracking-wider uppercase mb-1">Now</span>
+                        <span className="text-3xl font-headline">${deal.discountPrice}</span>
                       </div>
                     </div>
                     <button 
                       onClick={() => handleSelectDeal(deal)}
-                      className="premium-btn w-full sm:w-auto"
+                      className="bg-transparent border border-white text-white hover:bg-white hover:text-black font-bold uppercase tracking-widest text-xs px-8 py-3 rounded transition-colors w-full sm:w-auto"
                     >
-                      Book This Offer
+                      Book This Deal
                     </button>
                   </div>
                 </div>
