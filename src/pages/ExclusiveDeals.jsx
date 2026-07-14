@@ -82,7 +82,8 @@ export default function ExclusiveDeals() {
                     </div>
                     <button 
                       onClick={() => handleSelectDeal(deal)}
-                      className="bg-transparent border border-white text-white hover:bg-white hover:text-black font-bold uppercase tracking-widest text-xs px-8 py-3 rounded transition-colors w-full sm:w-auto"
+                      className=" w-full sm:w-auto font-bold uppercase tracking-widest text-xs px-8 py-3 rounded text-white"
+                      style={{ backgroundColor: '#86626E' }}
                     >
                       Book This Deal
                     </button>

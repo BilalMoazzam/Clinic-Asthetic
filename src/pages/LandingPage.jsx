@@ -41,7 +41,7 @@ export default function LandingPage() {
             alt="Luxury Spa" 
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-black/30"></div>
+          <div className="absolute inset-0 bg-black/10"></div>
         </div>
         
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-10">
@@ -76,7 +76,7 @@ export default function LandingPage() {
           >
             <Link 
               to="/book" 
-              className="inline-block bg-white text-on-surface px-10 py-4 rounded font-semibold tracking-wider uppercase hover:bg-surface-container transition-colors shadow-lg text-sm"
+              className="inline-block px-10 py-4 rounded font-semibold tracking-wider uppercase shadow-lg text-sm text-white" style={{ backgroundColor: '#86626E' }}
             >
               Book Your Appointment
             </Link>
