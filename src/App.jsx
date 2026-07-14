@@ -38,7 +38,6 @@ function AppContent() {
     // Update Brand Typography
     if (settings.typography) {
       document.documentElement.style.setProperty('--font-brand', settings.typography);
-      document.body.style.fontFamily = `'${settings.typography}', sans-serif`;
     }
 
     // Update Page Title

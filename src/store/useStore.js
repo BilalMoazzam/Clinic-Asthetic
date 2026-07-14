@@ -67,7 +67,7 @@ const FALLBACK_VOUCHERS = [
 
 const FALLBACK_SETTINGS = {
   "brandName": "VLAS AESTHETIC",
-  "primaryAccent": "#0e74a0",
+  "primaryAccent": "#86626E",
   "typography": "Playfair Display",
   "workingHoursStart": "09:00 AM",
   "workingHoursEnd": "08:00 PM",
@@ -164,12 +164,15 @@ export const useStore = create((set, get) => ({
       const res = await fetch(`${API_URL}/settings`);
       if (!res.ok) throw new Error("API failed");
       const data = await res.json();
+      data.primaryAccent = "#86626E"; // Force overriding the DB or old cached value
       set({ settings: data });
       localStorage.setItem('vlas_settings', JSON.stringify(data));
     } catch (e) {
       console.warn("Client App: Using offline fallback for settings");
       const local = localStorage.getItem('vlas_settings');
-      set({ settings: local ? JSON.parse(local) : FALLBACK_SETTINGS });
+      const parsed = local ? JSON.parse(local) : FALLBACK_SETTINGS;
+      parsed.primaryAccent = "#86626E";
+      set({ settings: parsed });
     }
   },
 

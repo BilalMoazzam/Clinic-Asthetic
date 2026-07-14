@@ -104,7 +104,7 @@ export default function LandingPage() {
                     alt={service.title} 
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4 bg-white px-3 py-1 rounded text-xs font-semibold tracking-widest uppercase shadow-sm" style={{ color: activeColor }}>
+                  <div className="absolute top-4 left-4 bg-primary px-3 py-1 rounded text-xs font-semibold tracking-widest uppercase shadow-sm text-white">
                     {service.category}
                   </div>
                 </div>
@@ -173,7 +173,7 @@ export default function LandingPage() {
       {mainDeal && (
         <section className="py-16 md:py-24 px-4 md:px-10 bg-surface-container relative overflow-hidden">
           <div className="max-w-screen-xl mx-auto">
-            <div className="bg-white rounded-2xl overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-2 items-center">
+            <div className="bg-primary text-white rounded-2xl overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-2 items-center">
               <div className="aspect-square md:aspect-auto md:h-full relative">
                 <img 
                   src={mainDeal.image} 
@@ -182,9 +182,9 @@ export default function LandingPage() {
                 />
               </div>
               <div className="p-10 md:p-16 text-center md:text-left">
-                <span className="text-xs font-bold tracking-widest uppercase mb-4 block" style={{ color: activeColor }}>Special Offer</span>
-                <h2 className="text-4xl md:text-5xl font-headline mb-6">{mainDeal.title}</h2>
-                <p className="text-lg text-on-surface-variant font-light mb-8">
+                <span className="text-xs font-bold tracking-widest uppercase mb-4 block text-white opacity-80">Special Offer</span>
+                <h2 className="text-4xl md:text-5xl font-headline mb-6 text-white">{mainDeal.title}</h2>
+                <p className="text-lg text-white/90 font-light mb-8">
                   {mainDeal.description}
                 </p>
                 <div className="flex flex-col sm:flex-row items-center gap-6 md:gap-10">
@@ -195,8 +195,8 @@ export default function LandingPage() {
                     Book This Deal
                   </button>
                   <div className="flex flex-col items-center sm:items-start">
-                    <span className="text-sm text-on-surface-variant line-through mb-1">${mainDeal.price}</span>
-                    <span className="text-3xl font-headline" style={{ color: activeColor }}>${mainDeal.discountPrice}</span>
+                    <span className="text-sm text-white/80 line-through mb-1">${mainDeal.price}</span>
+                    <span className="text-3xl font-headline text-white">${mainDeal.discountPrice}</span>
                   </div>
                 </div>
               </div>
@@ -206,17 +206,17 @@ export default function LandingPage() {
       )}
 
       {/* Testimonial */}
-      <section className="py-20 md:py-32 px-4 border-y border-outline bg-white">
+      <section className="py-20 md:py-32 px-4 border-y border-outline bg-primary">
         <div className="max-w-screen-md mx-auto text-center">
           <div className="mb-8">
             {[1,2,3,4,5].map(i => (
-              <span key={i} className="material-symbols-outlined text-2xl mx-1" style={{ color: activeColor }}>star</span>
+              <span key={i} className="material-symbols-outlined text-2xl mx-1 text-white">star</span>
             ))}
           </div>
-          <h3 className="text-2xl md:text-4xl font-headline leading-relaxed text-on-surface mb-8">
+          <h3 className="text-2xl md:text-4xl font-headline leading-relaxed text-white mb-8">
             "The most relaxing and professional experience I've ever had. My skin has never looked better. Highly recommend to anyone looking for premium care."
           </h3>
-          <p className="text-sm font-semibold tracking-widest uppercase text-on-surface-variant">
+          <p className="text-sm font-semibold tracking-widest uppercase text-white/80">
             — Sarah M.
           </p>
         </div>
