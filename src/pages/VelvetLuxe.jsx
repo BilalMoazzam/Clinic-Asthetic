@@ -29,7 +29,7 @@ export default function VelvetLuxe() {
       image: "https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&q=80&w=1200",
       type: 'membership'
     });
-    navigate('/book/time');
+    navigate('/book');
   };
 
   const tiers = [

@@ -37,6 +37,15 @@
     color: inherit;
   }
 
+  /* Fix for browser autofill background changing to white/blue */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  input:-webkit-autofill:active{
+      -webkit-box-shadow: 0 0 0 30px var(--surface) inset !important;
+      -webkit-text-fill-color: var(--on-surface) !important;
+  }
+
   /* Remove any blue from links */
   a:hover {
     color: inherit;

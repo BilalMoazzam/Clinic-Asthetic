@@ -116,6 +116,16 @@ export default function BookingConfirmation() {
                 <span className="text-on-surface-variant font-medium">Email</span>
                 <span className="text-on-surface font-light">{bookingData.client?.email}</span>
               </div>
+              <div className="flex justify-between items-center border-b border-outline pb-4">
+                <span className="text-on-surface-variant font-medium">Phone</span>
+                <span className="text-on-surface font-light">{bookingData.client?.phone ? `+92 ${bookingData.client.phone}` : '-'}</span>
+              </div>
+              {bookingData.voucher && (
+                <div className="flex justify-between items-center border-b border-outline pb-4">
+                  <span className="text-on-surface-variant font-medium">Promo Code</span>
+                  <span className="text-on-surface font-light">{bookingData.voucher.code}</span>
+                </div>
+              )}
               <p className="text-sm text-on-surface-variant pt-2 leading-relaxed">
                 A confirmation email with your booking details and arrival instructions has been sent.
               </p>
@@ -123,6 +133,18 @@ export default function BookingConfirmation() {
           </div>
           
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <button 
+              onClick={() => {
+                const serviceName = bookingData.cart?.map(i => i.name).join(' + ') || 'VLAS Appointment';
+                const message = `Booking Confirmed!\n\nName: ${bookingData.client?.firstName} ${bookingData.client?.lastName}\nService: ${serviceName}\nDate: ${bookingData.date}\nTime: ${bookingData.time}\nPhone: +92 ${bookingData.client?.phone}\n${bookingData.voucher ? `Promo Code: ${bookingData.voucher.code}\n` : ''}\nThank you for choosing VLAS AESTHETIC.`;
+                const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+                window.open(whatsappUrl, '_blank');
+              }}
+              className="px-8 py-3 flex items-center justify-center gap-3 w-full sm:w-auto rounded-lg border font-semibold tracking-wide transition-colors bg-green-600 text-white hover:bg-green-700 border-green-600"
+            >
+              <span className="material-symbols-outlined text-sm">chat</span>
+              Share via WhatsApp
+            </button>
             <button 
               onClick={() => {
                 const date = bookingData.date;

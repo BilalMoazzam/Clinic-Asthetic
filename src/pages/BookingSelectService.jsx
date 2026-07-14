@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
 import { useStore } from '../store/useStore';
+import BookingProgressBar from '../components/BookingProgressBar';
 
 export default function BookingSelectService() {
   const navigate = useNavigate();
@@ -182,10 +183,14 @@ export default function BookingSelectService() {
   };
 
   return (
-    <div className="bg-surface text-on-surface min-h-screen pt-24 pb-40 flex-grow overflow-x-hidden">
-      <main className="max-w-screen-md mx-auto px-4 md:px-10">
+    <div className="bg-surface text-on-surface min-h-screen pb-40 overflow-x-hidden pt-24">
+      <main className="max-w-screen-xl mx-auto px-4 md:px-10">
         
-        <header className="mb-12 md:mb-16">
+        <div className="mb-12 max-w-3xl mx-auto">
+          <BookingProgressBar currentStep={1} />
+        </div>
+
+        <header className="text-center mb-16 md:mb-24">
           <h1 className="font-headline text-4xl md:text-5xl text-on-surface mb-2">Book your appointment</h1>
         </header>
 

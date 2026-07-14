@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useBooking } from '../context/BookingContext';
 import { useStore } from '../store/useStore';
+import BookingProgressBar from '../components/BookingProgressBar';
 
 export default function BookingTimeSelect() {
   const navigate = useNavigate();
@@ -163,11 +164,15 @@ export default function BookingTimeSelect() {
   };
 
   return (
-    <div className="bg-surface text-on-surface min-h-screen pb-40 relative overflow-x-hidden pt-24">
+    <div className="bg-surface text-on-surface min-h-screen pb-40 overflow-x-hidden pt-24">
       <main className="max-w-screen-xl mx-auto px-4 md:px-10">
-        
-        <header className="mb-10">
-          <h1 className="font-headline text-3xl md:text-4xl text-on-surface mb-2">Select Date & Time</h1>
+
+        <div className="mb-12 max-w-3xl mx-auto">
+          <BookingProgressBar currentStep={2} />
+        </div>
+
+        <header className="text-center mb-12 md:mb-16">
+          <h1 className="font-headline text-4xl md:text-5xl text-on-surface mb-2">Select Date & Time</h1>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
