@@ -20,13 +20,13 @@ export default function TopNavBar() {
   return (
     <>
       {/* Main Nav */}
-      <nav className="sticky top-0 z-50 border-b border-outline shadow-sm" style={{ backgroundColor: '#CDBFAC' }}>
+      <nav className="sticky top-0 z-50 border-b shadow-sm" style={{ backgroundColor: '#86626E', borderColor: '#6e4f5a' }}>
         <div className="flex justify-between items-center w-full px-4 md:px-10 py-4 max-w-screen-2xl mx-auto">
           <div>
-            <Link to="/" className="text-2xl md:text-3xl font-headline text-on-surface group flex items-center gap-3">
+            <Link to="/" className="text-2xl md:text-3xl font-headline group flex items-center gap-3" style={{ color: '#fff' }}>
               <span 
-                className="w-10 h-10 md:w-12 md:h-12 rounded flex items-center justify-center text-white font-semibold text-lg transition-all"
-                style={{ backgroundColor: settings.primaryAccent || 'var(--primary)' }}
+                className="w-10 h-10 md:w-12 md:h-12 rounded flex items-center justify-center font-semibold text-lg transition-all"
+                style={{ backgroundColor: '#6e4f5a', color: '#fff' }}
               >
                 {settings.brandName ? settings.brandName.charAt(0) : 'V'}
               </span>
@@ -52,7 +52,7 @@ export default function TopNavBar() {
                 to="/book" 
                 onClick={() => clearBooking()}
                 className="premium-btn"
-                style={{ backgroundColor: settings.primaryAccent }}
+                style={{ backgroundColor: '#6e4f5a' }}
               >
                 Book Now
               </Link>
@@ -61,7 +61,8 @@ export default function TopNavBar() {
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full hover:bg-surface-container transition-colors"
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full transition-colors"
+              style={{ color: '#fff' }}
             >
               <span className="material-symbols-outlined text-2xl">
                 {isMobileMenuOpen ? 'close' : 'menu'}
@@ -77,8 +78,8 @@ export default function TopNavBar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden border-t border-outline overflow-hidden" 
-              style={{ backgroundColor: '#CDBFAC' }}
+              className="lg:hidden overflow-hidden border-t" 
+              style={{ backgroundColor: '#86626E', borderColor: '#6e4f5a' }}
             >
               <div className="flex flex-col p-6 gap-4">
                 {navLinks.map((link) => (
@@ -87,7 +88,7 @@ export default function TopNavBar() {
                     to={link.path}
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-base font-medium py-2 transition-colors"
-                    style={{ color: location.pathname === link.path ? (settings.primaryAccent || 'var(--primary)') : 'var(--on-surface-variant)' }}
+                    style={{ color: location.pathname === link.path ? '#fff' : 'rgba(255,255,255,0.75)' }}
                   >
                     {link.name}
                   </Link>
@@ -100,7 +101,7 @@ export default function TopNavBar() {
                       setIsMobileMenuOpen(false);
                     }}
                     className="premium-btn block text-center"
-                    style={{ backgroundColor: settings.primaryAccent }}
+                    style={{ backgroundColor: '#6e4f5a' }}
                   >
                     Book Now
                   </Link>
@@ -114,23 +115,22 @@ export default function TopNavBar() {
   );
 }
 
-function NavLink({ link, isActive, settings }) {
+function NavLink({ link, isActive }) {
   return (
     <Link 
       to={link.path} 
-      className="text-[15px] font-medium transition-colors relative py-2 block hover:text-primary"
-      style={{ 
-        color: isActive ? (settings.primaryAccent || 'var(--primary)') : 'var(--on-surface)'
-      }}
+      className="text-[15px] font-medium transition-opacity relative py-2 block"
+      style={{ color: '#fff', opacity: isActive ? 1 : 0.8 }}
     >
       {link.name}
       {isActive && (
         <motion.div 
           layoutId="nav-underline"
           className="absolute bottom-0 left-0 w-full h-0.5 rounded-t"
-          style={{ backgroundColor: settings.primaryAccent || 'var(--primary)' }}
+          style={{ backgroundColor: '#fff' }}
         />
       )}
     </Link>
   );
 }
+

@@ -37,6 +37,12 @@ export default function BookingClientDetails() {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // Phone: only allow digits, max 10 after +92
+  const handlePhoneChange = (e) => {
+    const digits = e.target.value.replace(/\D/g, '').slice(0, 10);
+    setFormData(prev => ({ ...prev, phone: digits }));
+  };
+
   const handleApplyVoucher = () => {
     const voucher = validateVoucher(voucherCode);
     if (voucher) {
@@ -101,7 +107,7 @@ export default function BookingClientDetails() {
                       value={formData.firstName} 
                       onChange={handleChange} 
                       autoComplete="given-name"
-                      className="w-full bg-surface border border-outline focus:border-gray-400 rounded-lg py-3 px-4 text-on-surface outline-none transition-colors" 
+                      className="w-full bg-surface border border-outline focus:border-primary rounded-lg py-3 px-4 text-on-surface outline-none transition-colors" 
                       placeholder="Jane" 
                     />
                   </div>
@@ -113,7 +119,7 @@ export default function BookingClientDetails() {
                       value={formData.lastName} 
                       onChange={handleChange} 
                       autoComplete="family-name"
-                      className="w-full bg-surface border border-outline focus:border-gray-400 rounded-lg py-3 px-4 text-on-surface outline-none transition-colors" 
+                      className="w-full bg-surface border border-outline focus:border-primary rounded-lg py-3 px-4 text-on-surface outline-none transition-colors" 
                       placeholder="Doe"
                     />
                   </div>
@@ -122,15 +128,21 @@ export default function BookingClientDetails() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                   <div>
                     <label className="text-sm font-semibold uppercase tracking-wider text-on-surface-variant mb-2 block">Phone Number *</label>
-                    <input 
-                      required 
-                      name="phone" 
-                      value={formData.phone} 
-                      onChange={handleChange} 
-                      autoComplete="tel"
-                      className="w-full bg-surface border border-outline focus:border-gray-400 rounded-lg py-3 px-4 text-on-surface outline-none transition-colors" 
-                      placeholder="(555) 000-0000"
-                    />
+                    <div className="flex w-full bg-surface border border-outline focus-within:border-gray-400 rounded-lg overflow-hidden transition-colors">
+                      <span className="flex items-center px-4 py-3 font-semibold text-on-surface border-r border-outline bg-surface-container shrink-0 select-none">+92</span>
+                      <input 
+                        required
+                        inputMode="numeric"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handlePhoneChange}
+                        autoComplete="tel"
+                        maxLength={10}
+                        className="flex-1 bg-transparent py-3 px-3 text-on-surface outline-none"
+                        placeholder="3XX-XXXXXXX"
+                      />
+                    </div>
+                    <p className="text-xs text-on-surface-variant mt-1 opacity-70">Format: +92 3XX-XXXXXXX (10 digits)</p>
                   </div>
                   <div>
                     <label className="text-sm font-semibold uppercase tracking-wider text-on-surface-variant mb-2 block">Email Address *</label>
@@ -141,7 +153,7 @@ export default function BookingClientDetails() {
                       value={formData.email} 
                       onChange={handleChange} 
                       autoComplete="email"
-                      className="w-full bg-surface border border-outline focus:border-gray-400 rounded-lg py-3 px-4 text-on-surface outline-none transition-colors" 
+                      className="w-full bg-surface border border-outline focus:border-primary rounded-lg py-3 px-4 text-on-surface outline-none transition-colors" 
                       placeholder="jane@example.com"
                     />
                   </div>
@@ -153,7 +165,7 @@ export default function BookingClientDetails() {
               <h3 className="text-xl font-headline mb-4">Promo Code or Gift Card</h3>
               <div className="flex flex-col sm:flex-row gap-4">
                 <input 
-                  className="flex-grow bg-surface border border-outline focus:border-gray-400 rounded-lg py-3 px-4 text-sm outline-none transition-colors" 
+                  className="flex-grow bg-surface border border-outline focus:border-primary rounded-lg py-3 px-4 text-sm outline-none transition-colors" 
                   placeholder="Enter code" 
                   value={voucherCode}
                   onChange={(e) => setVoucherCode(e.target.value.toUpperCase())}
@@ -260,3 +272,4 @@ export default function BookingClientDetails() {
     </div>
   );
 }
+

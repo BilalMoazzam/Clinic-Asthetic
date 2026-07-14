@@ -25,8 +25,8 @@ export default {
       },
       "fontFamily": {
               "headline": ["Playfair Display", "serif"],
-              "body": ["Montserrat", "sans-serif"],
-              "label": ["Montserrat", "sans-serif"]
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
       }
     },
   },

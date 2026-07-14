@@ -20,7 +20,7 @@ export default function Footer() {
               ].map((social, i) => (
                 <a 
                   key={i}
-                  className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center transition-all hover:border-primary hover:text-primary shadow-sm" 
+                  className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center transition-all hover:border-primary hover:opacity-80 shadow-sm" 
                   href={social.href}
                 >
                   <span className="material-symbols-outlined text-lg">{social.icon}</span>
@@ -40,7 +40,7 @@ export default function Footer() {
               ].map(link => (
                 <li key={link.name}>
                   <Link 
-                    className="text-sm text-on-surface-variant transition-colors hover:text-primary" 
+                    className="text-sm text-on-surface-variant transition-colors hover:opacity-80" 
                     to={link.path}
                   >
                     {link.name}
@@ -61,7 +61,7 @@ export default function Footer() {
               ].map(link => (
                 <li key={link.name}>
                   <a 
-                    className="text-sm text-on-surface-variant transition-colors hover:text-primary" 
+                    className="text-sm text-on-surface-variant transition-colors hover:opacity-80" 
                     href={link.path}
                   >
                     {link.name}
@@ -95,11 +95,12 @@ export default function Footer() {
             © {new Date().getFullYear()} {settings.brandName || 'VLAS'} AESTHETIC SOLUTIONS. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <a className="text-xs text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
-            <a className="text-xs text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+            <a className="text-xs text-on-surface-variant hover:opacity-80 transition-colors" href="#">Privacy Policy</a>
+            <a className="text-xs text-on-surface-variant hover:opacity-80 transition-colors" href="#">Terms of Service</a>
           </div>
         </div>
       </div>
     </footer>
   );
 }
+
