@@ -5,32 +5,47 @@ export default function Footer() {
   const { settings } = useStore();
 
   return (
-    <footer className="bg-surface-container py-16 px-4 md:px-10 border-t border-outline mt-auto">
+    <footer
+      className="py-16 px-4 md:px-10 border-t border-outline mt-auto"
+      style={{
+        backgroundColor: 'rgb(110, 79, 90)',
+        color: '#fff',
+      }}
+    >
       <div className="max-w-screen-2xl mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div>
-            <div className="text-3xl font-headline text-black mb-6">{settings.brandName || 'VLAS'}</div>
-            <p className="text-black text-sm font-normal leading-relaxed mb-8 max-w-xs">
+            <div className="text-3xl font-headline text-white mb-6">
+              {settings.brandName || 'VLAS'}
+            </div>
+
+            <p className="text-white/80 text-sm font-normal leading-relaxed mb-8 max-w-xs">
               The digital curator of luxury aesthetic solutions. Redefining elegance through science and serenity.
             </p>
+
             <div className="flex gap-3">
               {[
                 { icon: 'public', href: '#' },
                 { icon: 'camera_alt', href: '#' }
               ].map((social, i) => (
-                <a 
+                <a
                   key={i}
-                  className="w-10 h-10 rounded-full bg-surface border border-outline flex items-center justify-center transition-all hover:border-primary hover:opacity-80 shadow-sm" 
                   href={social.href}
+                  className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center transition-all hover:opacity-80"
                 >
-                  <span className="material-symbols-outlined text-lg">{social.icon}</span>
+                  <span className="material-symbols-outlined text-lg text-white">
+                    {social.icon}
+                  </span>
                 </a>
               ))}
             </div>
           </div>
-          
+
           <div>
-            <h4 className="font-headline text-lg mb-6 text-black">Quick Links</h4>
+            <h4 className="font-headline text-lg mb-6 text-white">
+              Quick Links
+            </h4>
+
             <ul className="space-y-3">
               {[
                 { name: 'Home', path: '/' },
@@ -39,9 +54,9 @@ export default function Footer() {
                 { name: 'Membership', path: '/velvet-luxe' }
               ].map(link => (
                 <li key={link.name}>
-                  <Link 
-                    className="text-sm text-black transition-colors hover:opacity-80" 
+                  <Link
                     to={link.path}
+                    className="text-sm text-white/80 hover:text-white transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -51,7 +66,10 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-headline text-lg mb-6 text-black">Resources</h4>
+            <h4 className="font-headline text-lg mb-6 text-white">
+              Resources
+            </h4>
+
             <ul className="space-y-3">
               {[
                 { name: 'Skin Science', path: '#' },
@@ -60,9 +78,9 @@ export default function Footer() {
                 { name: 'Client Spotlights', path: '#' }
               ].map(link => (
                 <li key={link.name}>
-                  <a 
-                    className="text-sm text-black transition-colors hover:opacity-80" 
+                  <a
                     href={link.path}
+                    className="text-sm text-white/80 hover:text-white transition-colors"
                   >
                     {link.name}
                   </a>
@@ -72,31 +90,63 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-headline text-lg mb-6 text-black">Contact Us</h4>
+            <h4 className="font-headline text-lg mb-6 text-white">
+              Contact Us
+            </h4>
+
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
-                <span className="material-symbols-outlined text-base mt-0.5 text-primary">location_on</span>
-                <span className="text-sm text-black leading-relaxed">1022 Velvet Lane, <br/>London W1S 2PS</span>
+                <span className="material-symbols-outlined text-base mt-0.5 text-white">
+                  location_on
+                </span>
+                <span className="text-sm text-white/80 leading-relaxed">
+                  1022 Velvet Lane,
+                  <br />
+                  London W1S 2PS
+                </span>
               </li>
+
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-base text-primary">call</span>
-                <span className="text-sm text-black">+44 20 7946 0122</span>
+                <span className="material-symbols-outlined text-base text-white">
+                  call
+                </span>
+                <span className="text-sm text-white/80">
+                  +44 20 7946 0122
+                </span>
               </li>
+
               <li className="flex items-center gap-3">
-                <span className="material-symbols-outlined text-base text-primary">mail</span>
-                <span className="text-sm text-black">concierge@vlas.com</span>
+                <span className="material-symbols-outlined text-base text-white">
+                  mail
+                </span>
+                <span className="text-sm text-white/80">
+                  concierge@vlas.com
+                </span>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="pt-8 border-t border-outline flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-black text-center md:text-left">
-            © {new Date().getFullYear()} {settings.brandName || 'VLAS'} AESTHETIC SOLUTIONS. All rights reserved.
+        <div className="pt-8 border-t border-white/20 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-white/70 text-center md:text-left">
+            © {new Date().getFullYear()} {settings.brandName || 'VLAS'} AESTHETIC
+            SOLUTIONS. All rights reserved.
           </p>
+
           <div className="flex gap-6">
-            <a className="text-xs text-black hover:opacity-80 transition-colors" href="#">Privacy Policy</a>
-            <a className="text-xs text-black hover:opacity-80 transition-colors" href="#">Terms of Service</a>
+            <a
+              href="#"
+              className="text-xs text-white/70 hover:text-white transition-colors"
+            >
+              Privacy Policy
+            </a>
+
+            <a
+              href="#"
+              className="text-xs text-white/70 hover:text-white transition-colors"
+            >
+              Terms of Service
+            </a>
           </div>
         </div>
       </div>
