@@ -32,20 +32,20 @@ export default function LandingPage() {
 
   return (
     <div className="bg-surface text-on-surface overflow-x-hidden selection:bg-primary/20">
-      
+
       {/* Hero Section */}
       <section className="relative h-[80vh] min-h-[600px] flex items-center justify-center">
         <div className="absolute inset-0 w-full h-full">
-          <img 
-            src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?auto=format&fit=crop&q=80&w=1920" 
-            alt="Luxury Spa" 
+          <img
+            src="	https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&q=80&w=800"
+            alt="Luxury Spa"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/10"></div>
         </div>
-        
+
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto mt-10">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -53,15 +53,15 @@ export default function LandingPage() {
           >
             Welcome to {settings.brandName || 'VLAS'}
           </motion.span>
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-5xl md:text-7xl lg:text-8xl font-headline text-white mb-8 leading-tight"
           >
-            Elevate Your <br className="hidden md:block"/> Beauty Routine
+            ElevateYour <br className="hidden md:block" /> Beauty Routine
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
@@ -74,8 +74,8 @@ export default function LandingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Link 
-              to="/book" 
+            <Link
+              to="/book"
               className="inline-block px-10 py-4 rounded font-semibold tracking-wider uppercase shadow-lg text-sm text-white" style={{ backgroundColor: '#86626E' }}
             >
               Book Your Appointment
@@ -99,9 +99,9 @@ export default function LandingPage() {
             {services.length > 0 ? services.filter(s => s.featured).slice(0, 3).map((service) => (
               <div key={service.id} className="editorial-card group overflow-hidden">
                 <div className="aspect-[4/3] overflow-hidden relative">
-                  <img 
-                    src={service.image} 
-                    alt={service.title} 
+                  <img
+                    src={service.image}
+                    alt={service.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute top-4 left-4 bg-primary px-3 py-1 rounded text-xs font-semibold tracking-widest uppercase shadow-sm text-white">
@@ -115,8 +115,8 @@ export default function LandingPage() {
                   </p>
                   <div className="flex items-center justify-between">
                     <span className="font-medium text-lg">${service.price}</span>
-                    <Link 
-                      to="/services" 
+                    <Link
+                      to="/services"
                       className="text-sm font-semibold tracking-wide uppercase hover:opacity-80 transition-opacity"
                       style={{ color: activeColor }}
                     >
@@ -129,7 +129,7 @@ export default function LandingPage() {
               <div className="col-span-full py-12 text-center text-on-surface-variant">Loading our signature treatments...</div>
             )}
           </div>
-          
+
           <div className="text-center mt-12">
             <Link to="/services" className="premium-btn inline-block">
               View All Services
@@ -162,9 +162,9 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="order-1 lg:order-2">
-             <div className="aspect-[4/5] rounded-lg overflow-hidden shadow-xl">
-                <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=1200" alt="Spa Interior" className="w-full h-full object-cover"/>
-             </div>
+            <div className="aspect-[4/5] rounded-lg overflow-hidden shadow-xl">
+              <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&q=80&w=1200" alt="Spa Interior" className="w-full h-full object-cover" />
+            </div>
           </div>
         </div>
       </section>
@@ -175,9 +175,9 @@ export default function LandingPage() {
           <div className="max-w-screen-xl mx-auto">
             <div className="bg-primary text-white rounded-2xl overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-2 items-center">
               <div className="aspect-square md:aspect-auto md:h-full relative">
-                <img 
-                  src={mainDeal.image} 
-                  alt={mainDeal.title} 
+                <img
+                  src={mainDeal.image}
+                  alt={mainDeal.title}
                   className="w-full h-full object-cover absolute inset-0"
                 />
               </div>
@@ -188,9 +188,10 @@ export default function LandingPage() {
                   {mainDeal.description}
                 </p>
                 <div className="flex flex-col sm:flex-row items-center gap-6 md:gap-10">
-                  <button 
-                    onClick={() => handleSelectDeal(mainDeal)} 
-                    className="premium-btn w-full sm:w-auto" 
+                  <button
+                    onClick={() => handleSelectDeal(mainDeal)}
+                    className="premium-btn w-full sm:w-auto"
+                    style={{ backgroundColor: "rgb(110, 79, 90)" }}
                   >
                     Book This Deal
                   </button>
@@ -209,7 +210,7 @@ export default function LandingPage() {
       <section className="py-20 md:py-32 px-4 border-y border-outline bg-primary">
         <div className="max-w-screen-md mx-auto text-center">
           <div className="mb-8">
-            {[1,2,3,4,5].map(i => (
+            {[1, 2, 3, 4, 5].map(i => (
               <span key={i} className="material-symbols-outlined text-2xl mx-1 text-white">star</span>
             ))}
           </div>
@@ -230,9 +231,9 @@ export default function LandingPage() {
             Subscribe to our newsletter for exclusive offers, beauty tips, and updates on new services.
           </p>
           <form className="flex flex-col sm:flex-row gap-4 justify-center" onSubmit={(e) => e.preventDefault()}>
-            <input 
-              className="input-editorial flex-grow max-w-sm sm:max-w-none !py-4 !text-base !font-normal" 
-              placeholder="Enter your email address" 
+            <input
+              className="input-editorial flex-grow max-w-sm sm:max-w-none !py-4 !text-base !font-normal"
+              placeholder="Enter your email address"
               type="email"
               required
             />

@@ -29,7 +29,7 @@ export default function ExclusiveDeals() {
   return (
     <div className="bg-surface min-h-screen pt-24 pb-32 px-4 md:px-10">
       <div className="max-w-screen-xl mx-auto">
-        
+
         {/* Header */}
         <header className="text-center mb-16 md:mb-24">
           <h1 className="text-4xl md:text-6xl font-headline mb-6 text-on-surface">Exclusive Offers</h1>
@@ -42,15 +42,15 @@ export default function ExclusiveDeals() {
         {/* Deals List */}
         <div className="space-y-12 md:space-y-20">
           {deals.length > 0 ? deals.map((deal, idx) => (
-            <div 
-              key={deal.id} 
+            <div
+              key={deal.id}
               className="editorial-card overflow-hidden"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-0">
                 <div className={`relative h-64 md:h-auto ${idx % 2 === 1 ? 'md:order-2' : ''}`}>
-                  <img 
-                    src={deal.image} 
-                    alt={deal.title} 
+                  <img
+                    src={deal.image}
+                    alt={deal.title}
                     className="w-full h-full object-cover absolute inset-0"
                   />
                   <div className="absolute top-4 left-4">
@@ -67,7 +67,7 @@ export default function ExclusiveDeals() {
                   <p className="text-lg text-white opacity-90 font-light leading-relaxed mb-8">
                     {deal.description}
                   </p>
-                  
+
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-white/20">
                     <div className="flex items-center gap-4 text-white">
                       <div className="flex flex-col">
@@ -80,10 +80,10 @@ export default function ExclusiveDeals() {
                         <span className="text-3xl font-headline">${deal.discountPrice}</span>
                       </div>
                     </div>
-                    <button 
-                      onClick={() => handleSelectDeal(deal)}
-                      className=" w-full sm:w-auto font-bold uppercase tracking-widest text-xs px-8 py-3 rounded text-white"
-                      style={{ backgroundColor: '#86626E' }}
+                    <button
+                      onClick={() => handleSelectDeal(mainDeal)}
+                      className="premium-btn w-full sm:w-auto"
+                      style={{ backgroundColor: "rgb(110, 79, 90)" }}
                     >
                       Book This Deal
                     </button>
